@@ -49,12 +49,6 @@ nav{
 }
 .nav-logo{display:flex;align-items:center;gap:12px;}
 .nav-logo img{width:38px;height:38px;border-radius:8px;}
-.nav-logo .logo-fallback{
-  width:38px;height:38px;border-radius:8px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:flex;align-items:center;justify-content:center;
-  font-weight:800;font-size:18px;color:#140E03;
-}
 .nav-logo span{font-weight:700;font-size:17px;}
 .nav-links{display:flex;align-items:center;gap:6px;}
 .nav-links a{
@@ -571,13 +565,212 @@ nav{
   .nav-links{display:none;}
   .pricing-cards{grid-template-columns:1fr;}
 }
+
+/* ── SPLASH SCREEN ── */
+#splash{
+  position:fixed;inset:0;z-index:9999;
+  background:#0A0E18;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:24px;
+  transition:opacity .6s ease, visibility .6s ease;
+}
+#splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.splash-logo{
+  width:120px;height:120px;border-radius:24px;
+  animation:splashPop .6s cubic-bezier(.34,1.56,.64,1) .2s both,
+            splashGlow 2s ease-in-out 1s infinite alternate;
+  filter:drop-shadow(0 0 0px rgba(255,100,20,0));
+}
+.splash-title{
+  font-size:28px;font-weight:800;letter-spacing:.5px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:fadeUp .6s .7s ease both;
+}
+.splash-tagline{
+  font-size:13px;color:var(--dim);
+  animation:fadeUp .5s .9s ease both;
+}
+.splash-bar{
+  width:160px;height:3px;background:var(--border);border-radius:2px;overflow:hidden;
+  animation:fadeUp .5s .9s ease both;
+}
+.splash-bar-fill{
+  height:100%;width:0;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:2px;
+  animation:loadBar 1.4s 1s ease forwards;
+}
+@keyframes splashPop{
+  from{opacity:0;transform:scale(.4) rotate(-10deg);}
+  to{opacity:1;transform:scale(1) rotate(0deg);}
+}
+@keyframes splashGlow{
+  from{filter:drop-shadow(0 0 16px rgba(255,100,20,.45));}
+  to{filter:drop-shadow(0 0 32px rgba(255,185,50,.7));}
+}
+@keyframes loadBar{
+  to{width:100%;}
+}
+
+/* ── RATINGS SECTION ── */
+.ratings-section{
+  padding:80px 40px;max-width:1100px;margin:0 auto;
+}
+.ratings-hero{
+  display:grid;grid-template-columns:320px 1fr;gap:32px;
+  margin-bottom:40px;
+}
+.ratings-score-card{
+  background:linear-gradient(145deg,var(--card) 0%,rgba(255,185,50,.06) 100%);
+  border:1px solid rgba(255,185,50,.25);
+  border-radius:24px;padding:40px 32px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+}
+.ratings-score-card::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,185,50,.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.avg-num{
+  font-size:88px;font-weight:800;line-height:1;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.avg-stars{font-size:24px;margin:10px 0 6px;}
+.avg-label{font-size:12px;color:var(--dim);font-weight:500;letter-spacing:.5px;text-transform:uppercase;}
+.rating-bars{display:flex;flex-direction:column;gap:8px;margin-top:28px;width:100%;}
+.rating-row{display:flex;align-items:center;gap:10px;font-size:12px;}
+.rating-row .r-label{color:var(--dim);width:22px;text-align:right;flex-shrink:0;}
+.rbar-bg{flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
+.rbar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1.2s cubic-bezier(.25,.8,.25,1);}
+.rcount{width:24px;text-align:right;color:var(--dim);font-size:11px;}
+
+.write-review-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:24px;padding:40px;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+.write-review-card::after{
+  content:'';position:absolute;bottom:-30px;left:-30px;
+  width:100px;height:100px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,100,20,.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.write-review-card h3{font-size:20px;font-weight:700;margin-bottom:6px;}
+.write-review-card p{font-size:13px;color:var(--dim);line-height:1.7;margin-bottom:24px;}
+.star-row-label{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;}
+.star-select{display:flex;gap:6px;margin-bottom:20px;}
+.star-btn{
+  background:none;border:none;cursor:pointer;
+  font-size:30px;line-height:1;padding:0;
+  filter:grayscale(1) brightness(.35);
+  transition:filter .12s,transform .12s;
+}
+.star-btn:hover{filter:grayscale(0) brightness(1);transform:scale(1.25);}
+.star-btn.active{filter:grayscale(0) brightness(1);transform:scale(1.05);}
+.review-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.review-field-single{margin-bottom:12px;}
+.rating-input{
+  width:100%;background:var(--bg2);
+  border:1px solid var(--border);border-radius:10px;
+  padding:11px 14px;color:var(--text);
+  font-family:'Space Grotesk',sans-serif;font-size:13px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.rating-input:focus{outline:none;border-color:rgba(255,185,50,.5);box-shadow:0 0 0 3px rgba(255,185,50,.08);}
+.rating-input::placeholder{color:var(--dim);}
+.rating-textarea{
+  width:100%;background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:12px 14px;color:var(--text);
+  font-family:'Space Grotesk',sans-serif;font-size:13px;
+  resize:vertical;min-height:90px;transition:border-color .2s,box-shadow .2s;
+  margin-bottom:16px;
+}
+.rating-textarea:focus{outline:none;border-color:rgba(255,185,50,.5);box-shadow:0 0 0 3px rgba(255,185,50,.08);}
+.rating-textarea::placeholder{color:var(--dim);}
+.review-submit-row{display:flex;align-items:center;gap:16px;}
+.btn-submit-rating{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#140E03;font-weight:700;font-size:14px;
+  padding:12px 32px;border-radius:11px;border:none;cursor:pointer;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-submit-rating:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,185,50,.28);}
+.rating-thanks{
+  display:none;font-size:13px;font-weight:700;
+  color:var(--green);display:none;align-items:center;gap:6px;
+}
+.rating-thanks.show{display:flex;}
+
+.reviews-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:16px;margin-top:0;
+}
+.review-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:22px;
+  transition:border-color .2s,transform .2s;
+  position:relative;
+}
+.review-card:hover{border-color:rgba(255,185,50,.3);transform:translateY(-2px);}
+.review-card::before{
+  content:'❝';position:absolute;top:14px;right:18px;
+  font-size:32px;color:rgba(255,185,50,.12);font-family:Georgia,serif;line-height:1;
+}
+.review-header{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.review-avatar{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:15px;color:#140E03;
+}
+.review-name{font-size:14px;font-weight:700;margin-bottom:2px;}
+.review-stars{font-size:11px;letter-spacing:1px;}
+.review-text{font-size:13px;color:var(--dim);line-height:1.65;}
+.review-date{font-size:11px;color:var(--border);margin-top:10px;}
+
+.support-bar{
+  display:flex;align-items:center;justify-content:center;
+  gap:0;flex-wrap:wrap;
+  padding:0;
+  background:linear-gradient(90deg,var(--bg2) 0%,var(--card) 50%,var(--bg2) 100%);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.support-link{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:13px;font-weight:600;color:var(--dim);
+  text-decoration:none;transition:all .2s;
+  padding:18px 32px;border-right:1px solid var(--border);
+}
+.support-link:last-child{border-right:none;}
+.support-link:hover{color:var(--accent);background:rgba(255,185,50,.05);}
+.support-link svg{flex-shrink:0;opacity:.7;transition:opacity .2s;}
+.support-link:hover svg{opacity:1;}
+@media(max-width:800px){
+  .ratings-hero{grid-template-columns:1fr;}
+  .review-fields{grid-template-columns:1fr;}
+  .reviews-grid{grid-template-columns:1fr;}
+  .support-link{border-right:none;border-bottom:1px solid var(--border);width:100%;justify-content:center;}
+  .support-link:last-child{border-bottom:none;}
+}
 </style>
 </head>
 <body>
 
+<div id="splash">
+  <img class="splash-logo" src="logo.webp" alt="ADIA QBoard Logo" onerror="this.src='logo.png'">
+  <div class="splash-title">ADIA QBoard</div>
+  <div class="splash-tagline">Sinhala Typing System — Loading…</div>
+  <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+</div>
+
 <nav>
   <div class="nav-logo">
-    <div class="logo-fallback" id="navLogo">A</div>
+    <img src="logo.webp" alt="ADIA QBoard" id="navLogo" onerror="this.src='logo.png'">
     <span>ADIA QBoard</span>
   </div>
   <div class="nav-links">
@@ -585,6 +778,7 @@ nav{
     <a href="#pricing">Pricing</a>
     <a href="#install">Install</a>
     <a href="#faq">FAQ</a>
+    <a href="#ratings">⭐ Reviews</a>
     <a href="#" class="nav-cta" onclick="openCart()">🛒 Get It</a>
   </div>
 </nav>
@@ -891,13 +1085,81 @@ nav{
   <div class="faq-list" id="faqList"></div>
 </section>
 
+<div class="support-bar">
+  <a class="support-link" href="mailto:info@adiaqboard.me">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+    info@adiaqboard.me
+  </a>
+  <a class="support-link" href="https://forms.gle/UReooqU1szryLShv8" target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+    Report a Bug / Missing Letter
+  </a>
+  <a class="support-link" href="https://wa.me/94741704804" target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp Support
+  </a>
+</div>
+
+<section class="ratings-section reveal" id="ratings">
+  <div style="text-align:center;margin-bottom:48px;">
+    <div class="section-tag">Reviews</div>
+    <h2>What users say</h2>
+    <p style="color:var(--dim);font-size:15px;margin-top:10px;">Real feedback from ADIA QBoard users across Sri Lanka.</p>
+  </div>
+  <div class="ratings-hero">
+    <div class="ratings-score-card">
+      <div class="avg-num" id="avgScore">0.0</div>
+      <div class="avg-stars">⭐⭐⭐⭐⭐</div>
+      <div class="avg-label">Based on <span id="totalRatings">0</span> reviews</div>
+      <div class="rating-bars" id="ratingBars">
+        <div class="rating-row"><span class="r-label">5</span><div class="rbar-bg"><div class="rbar-fill" id="bar5" style="width:0%"></div></div><span class="rcount" id="cnt5">0</span></div>
+        <div class="rating-row"><span class="r-label">4</span><div class="rbar-bg"><div class="rbar-fill" id="bar4" style="width:0%"></div></div><span class="rcount" id="cnt4">0</span></div>
+        <div class="rating-row"><span class="r-label">3</span><div class="rbar-bg"><div class="rbar-fill" id="bar3" style="width:0%"></div></div><span class="rcount" id="cnt3">0</span></div>
+        <div class="rating-row"><span class="r-label">2</span><div class="rbar-bg"><div class="rbar-fill" id="bar2" style="width:0%"></div></div><span class="rcount" id="cnt2">0</span></div>
+        <div class="rating-row"><span class="r-label">1</span><div class="rbar-bg"><div class="rbar-fill" id="bar1" style="width:0%"></div></div><span class="rcount" id="cnt1">0</span></div>
+      </div>
+    </div>
+    <div class="write-review-card">
+      <h3>Leave a Review</h3>
+      <p>Help others discover ADIA QBoard by sharing your experience.</p>
+      <div class="star-row-label">Your Rating</div>
+      <div class="star-select" id="starSelect">
+        <button class="star-btn" data-val="1" onclick="selectStar(1)">⭐</button>
+        <button class="star-btn" data-val="2" onclick="selectStar(2)">⭐</button>
+        <button class="star-btn" data-val="3" onclick="selectStar(3)">⭐</button>
+        <button class="star-btn" data-val="4" onclick="selectStar(4)">⭐</button>
+        <button class="star-btn" data-val="5" onclick="selectStar(5)">⭐</button>
+      </div>
+      <div class="review-fields">
+        <input class="rating-input" id="reviewName" type="text" placeholder="Your name (optional)">
+        <input class="rating-input" id="reviewLocation" type="text" placeholder="City (optional)">
+      </div>
+      <div class="review-field-single">
+        <textarea class="rating-textarea" id="reviewText" placeholder="Share your experience with ADIA QBoard…"></textarea>
+      </div>
+      <div class="review-submit-row">
+        <button class="btn-submit-rating" onclick="submitRating()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          Submit Review
+        </button>
+        <div class="rating-thanks" id="ratingThanks">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Thank you!
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reviews-grid" id="reviewsList">
+  </div>
+</section>
+
 <div class="bottom-bar">
   <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
     Back to Top
   </button>
   <div class="copyright">
-    © 2026 ADIA QBoard · All Rights Reserved.
+    © 2026 ADIA QBoard · All Rights Reserved · <a href="mailto:info@adiaqboard.me" style="color:var(--accent);text-decoration:none;">info@adiaqboard.me</a>
   </div>
 </div>
 
@@ -936,7 +1198,7 @@ nav{
   <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const track = document.getElementById('sliderTrack');
@@ -1038,15 +1300,92 @@ const observer  = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 revealEls.forEach(el => observer.observe(el));
 
-const img = new Image();
-img.onload = () => {
-  document.querySelectorAll('.logo-fallback, #navLogo').forEach(el => {
-    const i = document.createElement('img');
-    i.src = 'logo.webp'; i.style.cssText='width:38px;height:38px;border-radius:8px;';
-    el.replaceWith(i);
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('splash').classList.add('hidden');
+  }, 2600);
+});
+
+let selectedStars = 0;
+function selectStar(val) {
+  selectedStars = val;
+  document.querySelectorAll('.star-btn').forEach(function(btn, i) {
+    btn.classList.toggle('active', i < val);
   });
-};
-img.src = 'logo.webp';
+}
+
+var BASE_COUNTS = {5:0, 4:0, 3:0, 2:0, 1:0};
+
+function updateRatingStats() {
+  var stored = JSON.parse(localStorage.getItem('adiaReviews') || '[]');
+  var counts = {5:BASE_COUNTS[5], 4:BASE_COUNTS[4], 3:BASE_COUNTS[3], 2:BASE_COUNTS[2], 1:BASE_COUNTS[1]};
+  stored.forEach(function(r){ counts[r.stars] = (counts[r.stars]||0) + 1; });
+  var total = counts[5]+counts[4]+counts[3]+counts[2]+counts[1];
+  var sum = counts[5]*5+counts[4]*4+counts[3]*3+counts[2]*2+counts[1]*1;
+  var avg = total > 0 ? (sum/total).toFixed(1) : '0.0';
+  document.getElementById('avgScore').textContent = avg;
+  document.getElementById('totalRatings').textContent = total;
+  [5,4,3,2,1].forEach(function(s){
+    var pct = total > 0 ? Math.round((counts[s]/total)*100) : 0;
+    var bar = document.getElementById('bar'+s);
+    var cnt = document.getElementById('cnt'+s);
+    if(bar) setTimeout(function(){ bar.style.width = pct+'%'; }, 400);
+    if(cnt) cnt.textContent = counts[s];
+  });
+}
+
+function renderStoredReviews() {
+  var stored = JSON.parse(localStorage.getItem('adiaReviews') || '[]');
+  var list = document.getElementById('reviewsList');
+  stored.forEach(function(r) {
+    var card = document.createElement('div');
+    card.className = 'review-card';
+    var loc = r.location ? ' · '+r.location : '';
+    var date = r.date || 'Recently';
+    card.innerHTML = '<div class="review-header"><div class="review-avatar">'+(r.name?r.name[0].toUpperCase():'U')+'</div><div class="review-meta"><div class="review-name">'+(r.name||'Anonymous')+'</div><div class="review-stars">'+'⭐'.repeat(r.stars)+'</div></div></div><div class="review-text">'+r.text+'</div><div class="review-date">'+date+loc+'</div>';
+    list.insertBefore(card, list.firstChild);
+  });
+}
+
+renderStoredReviews();
+updateRatingStats();
+
+function submitRating() {
+  if (!selectedStars) { alert('Please select a star rating first!'); return; }
+  var text = document.getElementById('reviewText').value.trim();
+  if (!text) { alert('Please write a short review!'); return; }
+  var name = document.getElementById('reviewName').value.trim();
+  var location = document.getElementById('reviewLocation').value.trim();
+  var now = new Date();
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var date = months[now.getMonth()]+' '+now.getFullYear();
+
+  var review = { stars: selectedStars, name: name||'Anonymous', text: text, location: location, date: date };
+  var stored = JSON.parse(localStorage.getItem('adiaReviews') || '[]');
+  stored.unshift(review);
+  localStorage.setItem('adiaReviews', JSON.stringify(stored));
+
+  var list = document.getElementById('reviewsList');
+  var card = document.createElement('div');
+  card.className = 'review-card';
+  card.style.animation = 'fadeUp .5s ease forwards';
+  var loc = location ? ' · '+location : '';
+  card.innerHTML = '<div class="review-header"><div class="review-avatar">'+review.name[0].toUpperCase()+'</div><div class="review-meta"><div class="review-name">'+review.name+'</div><div class="review-stars">'+'⭐'.repeat(review.stars)+'</div></div></div><div class="review-text">'+review.text+'</div><div class="review-date">'+date+loc+'</div>';
+  list.insertBefore(card, list.firstChild);
+
+  document.getElementById('reviewText').value = '';
+  document.getElementById('reviewName').value = '';
+  document.getElementById('reviewLocation').value = '';
+  document.querySelectorAll('.star-btn').forEach(function(b){ b.classList.remove('active'); });
+  selectedStars = 0;
+
+  updateRatingStats();
+
+  var thanks = document.getElementById('ratingThanks');
+  thanks.classList.add('show');
+  setTimeout(function(){ thanks.classList.remove('show'); }, 3500);
+}
+
 </script>
 </body>
 </html>
