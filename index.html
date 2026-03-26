@@ -1198,7 +1198,10 @@ nav{
   <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+
+<script>
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const track = document.getElementById('sliderTrack');
@@ -1314,17 +1317,31 @@ function selectStar(val) {
   });
 }
 
-var BASE_COUNTS = {5:0, 4:0, 3:0, 2:0, 1:0};
+// --- Firebase Review Code ---
+const firebaseConfig = {
+  apiKey: "AIzaSyBU0LROq4tYKjfKx5JeB1afLDKQ_nRq1jk",
+  authDomain: "adia-review.firebaseapp.com",
+  projectId: "adia-review",
+  storageBucket: "adia-review.firebasestorage.app",
+  messagingSenderId: "1082220156930",
+  appId: "1:1082220156930:web:8ee6c1fcff31eadd6a2f1b"
+};
 
-function updateRatingStats() {
-  var stored = JSON.parse(localStorage.getItem('adiaReviews') || '[]');
-  var counts = {5:BASE_COUNTS[5], 4:BASE_COUNTS[4], 3:BASE_COUNTS[3], 2:BASE_COUNTS[2], 1:BASE_COUNTS[1]};
-  stored.forEach(function(r){ counts[r.stars] = (counts[r.stars]||0) + 1; });
-  var total = counts[5]+counts[4]+counts[3]+counts[2]+counts[1];
-  var sum = counts[5]*5+counts[4]*4+counts[3]*3+counts[2]*2+counts[1]*1;
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.firestore();
+
+function updateRatingStatsUI(reviews) {
+  var counts = {5:0, 4:0, 3:0, 2:0, 1:0};
+  reviews.forEach(function(r){ counts[r.stars] = (counts[r.stars]||0) + 1; });
+  var total = reviews.length;
+  var sum = counts[5]*5 + counts[4]*4 + counts[3]*3 + counts[2]*2 + counts[1]*1;
   var avg = total > 0 ? (sum/total).toFixed(1) : '0.0';
+
   document.getElementById('avgScore').textContent = avg;
   document.getElementById('totalRatings').textContent = total;
+
   [5,4,3,2,1].forEach(function(s){
     var pct = total > 0 ? Math.round((counts[s]/total)*100) : 0;
     var bar = document.getElementById('bar'+s);
@@ -1334,21 +1351,33 @@ function updateRatingStats() {
   });
 }
 
-function renderStoredReviews() {
-  var stored = JSON.parse(localStorage.getItem('adiaReviews') || '[]');
-  var list = document.getElementById('reviewsList');
-  stored.forEach(function(r) {
-    var card = document.createElement('div');
-    card.className = 'review-card';
-    var loc = r.location ? ' · '+r.location : '';
-    var date = r.date || 'Recently';
-    card.innerHTML = '<div class="review-header"><div class="review-avatar">'+(r.name?r.name[0].toUpperCase():'U')+'</div><div class="review-meta"><div class="review-name">'+(r.name||'Anonymous')+'</div><div class="review-stars">'+'⭐'.repeat(r.stars)+'</div></div></div><div class="review-text">'+r.text+'</div><div class="review-date">'+date+loc+'</div>';
-    list.insertBefore(card, list.firstChild);
+function fetchAndRenderReviews() {
+  db.collection("reviews").orderBy("timestamp", "desc").get().then(function(querySnapshot) {
+    var list = document.getElementById('reviewsList');
+    list.innerHTML = ''; 
+    var reviewsArray = [];
+
+    querySnapshot.forEach(function(doc) {
+      var r = doc.data();
+      reviewsArray.push(r);
+
+      var card = document.createElement('div');
+      card.className = 'review-card';
+      var loc = r.location ? ' · ' + r.location : '';
+      var date = r.date || 'Recently';
+      var firstLetter = r.name ? r.name[0].toUpperCase() : 'U';
+
+      card.innerHTML = '<div class="review-header"><div class="review-avatar">'+firstLetter+'</div><div class="review-meta"><div class="review-name">'+(r.name||'Anonymous')+'</div><div class="review-stars">'+'⭐'.repeat(r.stars)+'</div></div></div><div class="review-text">'+r.text+'</div><div class="review-date">'+date+loc+'</div>';
+      list.appendChild(card);
+    });
+
+    updateRatingStatsUI(reviewsArray);
+  }).catch(function(error) {
+    console.log("Error getting reviews: ", error);
   });
 }
 
-renderStoredReviews();
-updateRatingStats();
+fetchAndRenderReviews();
 
 function submitRating() {
   if (!selectedStars) { alert('Please select a star rating first!'); return; }
@@ -1356,36 +1385,48 @@ function submitRating() {
   if (!text) { alert('Please write a short review!'); return; }
   var name = document.getElementById('reviewName').value.trim();
   var location = document.getElementById('reviewLocation').value.trim();
+
   var now = new Date();
   var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var date = months[now.getMonth()]+' '+now.getFullYear();
+  var dateString = months[now.getMonth()] + ' ' + now.getFullYear();
 
-  var review = { stars: selectedStars, name: name||'Anonymous', text: text, location: location, date: date };
-  var stored = JSON.parse(localStorage.getItem('adiaReviews') || '[]');
-  stored.unshift(review);
-  localStorage.setItem('adiaReviews', JSON.stringify(stored));
+  var reviewData = {
+    stars: selectedStars,
+    name: name || 'Anonymous',
+    text: text,
+    location: location,
+    date: dateString,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  };
 
-  var list = document.getElementById('reviewsList');
-  var card = document.createElement('div');
-  card.className = 'review-card';
-  card.style.animation = 'fadeUp .5s ease forwards';
-  var loc = location ? ' · '+location : '';
-  card.innerHTML = '<div class="review-header"><div class="review-avatar">'+review.name[0].toUpperCase()+'</div><div class="review-meta"><div class="review-name">'+review.name+'</div><div class="review-stars">'+'⭐'.repeat(review.stars)+'</div></div></div><div class="review-text">'+review.text+'</div><div class="review-date">'+date+loc+'</div>';
-  list.insertBefore(card, list.firstChild);
+  var btn = document.querySelector('.btn-submit-rating');
+  var originalBtnText = btn.innerHTML;
+  btn.innerHTML = "Submitting...";
+  btn.disabled = true;
 
-  document.getElementById('reviewText').value = '';
-  document.getElementById('reviewName').value = '';
-  document.getElementById('reviewLocation').value = '';
-  document.querySelectorAll('.star-btn').forEach(function(b){ b.classList.remove('active'); });
-  selectedStars = 0;
+  db.collection("reviews").add(reviewData).then(function() {
+    document.getElementById('reviewText').value = '';
+    document.getElementById('reviewName').value = '';
+    document.getElementById('reviewLocation').value = '';
+    document.querySelectorAll('.star-btn').forEach(function(b){ b.classList.remove('active'); });
+    selectedStars = 0;
 
-  updateRatingStats();
+    btn.innerHTML = originalBtnText;
+    btn.disabled = false;
 
-  var thanks = document.getElementById('ratingThanks');
-  thanks.classList.add('show');
-  setTimeout(function(){ thanks.classList.remove('show'); }, 3500);
+    var thanks = document.getElementById('ratingThanks');
+    thanks.classList.add('show');
+    setTimeout(function(){ thanks.classList.remove('show'); }, 3500);
+
+    fetchAndRenderReviews();
+
+  }).catch(function(error) {
+    console.error("Error adding review: ", error);
+    alert("Something went wrong. Please try again.");
+    btn.innerHTML = originalBtnText;
+    btn.disabled = false;
+  });
 }
-
 </script>
 </body>
 </html>
