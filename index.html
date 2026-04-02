@@ -50,6 +50,13 @@ nav{
 .nav-logo{display:flex;align-items:center;gap:12px;}
 .nav-logo img{width:38px;height:38px;border-radius:8px;}
 .nav-logo span{font-weight:700;font-size:17px;}
+
+/* Mobile Menu Button */
+.mobile-menu-btn{
+  display:none;background:none;border:none;color:var(--text);
+  font-size:24px;cursor:pointer;
+}
+
 .nav-links{display:flex;align-items:center;gap:6px;}
 .nav-links a{
   color:var(--dim);text-decoration:none;font-size:13px;font-weight:500;
@@ -245,13 +252,18 @@ nav{
 
 .pricing-wrap{padding:80px 40px;}
 .pricing-cards{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:20px;max-width:780px;margin:48px auto 0;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  max-width:780px;
+  margin:48px auto 0;
 }
 .price-card{
   background:var(--card);border:1px solid var(--border);
   border-radius:20px;padding:36px;position:relative;overflow:hidden;
   transition:all .25s;
+  width:100%;
+  max-width:440px;
 }
 .price-card:hover{transform:translateY(-4px);box-shadow:0 16px 50px rgba(0,0,0,.4);}
 .price-card.featured{border-color:rgba(180,120,255,.5);
@@ -267,8 +279,8 @@ nav{
   border-radius:20px 20px 0 0;
 }
 .price-name{font-size:15px;font-weight:700;margin-bottom:6px;}
-.price-amount{font-size:42px;font-weight:700;line-height:1;margin-bottom:4px;}
-.price-amount span{font-size:16px;color:var(--dim);font-weight:400;}
+.price-amount{font-size:42px;font-weight:700;line-height:1;margin-bottom:4px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.price-amount-strikethrough{font-size:20px;color:var(--red);text-decoration:line-through;font-weight:600;opacity:0.8;}
 .price-note{font-size:11px;color:var(--dim);margin-bottom:24px;}
 .price-divider{height:1px;background:var(--border);margin-bottom:20px;}
 .price-feature{
@@ -280,7 +292,6 @@ nav{
   display:flex;align-items:center;justify-content:center;font-size:11px;
 }
 .chk.yes{background:rgba(50,200,120,.2);color:var(--green);}
-.chk.no {background:rgba(255,80,80,.2);color:var(--red);}
 .chk.star{background:rgba(180,120,255,.2);color:var(--purple);}
 
 .price-cta{
@@ -289,8 +300,6 @@ nav{
   text-decoration:none;cursor:pointer;border:none;width:100%;
   transition:all .2s;
 }
-.price-cta.basic{background:rgba(255,185,50,.15);color:var(--accent);border:1px solid rgba(255,185,50,.3);}
-.price-cta.basic:hover{background:rgba(255,185,50,.25);}
 .price-cta.pro{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#140E03;}
 .price-cta.pro:hover{opacity:.9;transform:translateY(-1px);}
 
@@ -459,7 +468,7 @@ nav{
   border-radius:10px;padding:16px;margin-bottom:16px;cursor:pointer;
   transition:border-color .2s;display:flex;align-items:center;gap:14px;
 }
-.modal-pkg:hover,.modal-pkg.sel{border-color:var(--accent);}
+.modal-pkg.sel{border-color:var(--accent);}
 .modal-pkg.sel .mpk-dot{background:var(--accent);}
 .mpk-dot{
   width:18px;height:18px;border-radius:50%;
@@ -496,10 +505,9 @@ nav{
 .cart-badge{
   position:absolute;top:-4px;right:-4px;
   background:var(--red);color:#fff;font-size:10px;font-weight:800;
-  width:18px;height:18px;border-radius:50%;display:none;
+  width:18px;height:18px;border-radius:50%;display:flex;
   align-items:center;justify-content:center;
 }
-.cart-badge.show{display:flex;}
 
 .wa-float{
   position:fixed;bottom:96px;right:28px;z-index:50;
@@ -560,9 +568,19 @@ nav{
 .reveal{opacity:0;transform:translateY(30px);transition:all .6s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
+/* ── Mobile Navigation Update ─────────────────── */
 @media(max-width:700px){
   nav{padding:0 16px;}
-  .nav-links{display:none;}
+  .mobile-menu-btn{display:block;}
+  .nav-links{
+    position:absolute;top:64px;left:0;right:0;
+    background:rgba(10,14,24,0.95);backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+    flex-direction:column;padding:20px;gap:12px;
+    display:none; /* Hidden by default on mobile */
+  }
+  .nav-links.active{display:flex;}
+  .nav-links a{width:100%;text-align:center;padding:12px;}
   .pricing-cards{grid-template-columns:1fr;}
 }
 
@@ -773,13 +791,14 @@ nav{
     <img src="logo.webp" alt="ADIA QBoard" id="navLogo" onerror="this.src='logo.png'">
     <span>ADIA QBoard</span>
   </div>
-  <div class="nav-links">
-    <a href="#features">Features</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#install">Install</a>
-    <a href="#faq">FAQ</a>
-    <a href="#ratings">⭐ Reviews</a>
-    <a href="#" class="nav-cta" onclick="openCart()">🛒 Get It</a>
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+  <div class="nav-links" id="mobileNav">
+    <a href="#features" onclick="toggleMobileMenu()">Features</a>
+    <a href="#pricing" onclick="toggleMobileMenu()">Pricing</a>
+    <a href="#install" onclick="toggleMobileMenu()">Install</a>
+    <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
+    <a href="#ratings" onclick="toggleMobileMenu()">⭐ Reviews</a>
+    <a href="#" class="nav-cta" onclick="openCart(); toggleMobileMenu();">🛒 Get It</a>
   </div>
 </nav>
 
@@ -885,33 +904,23 @@ nav{
   </div>
   <div class="pricing-cards">
 
-    <div class="price-card">
-      <div class="price-top-bar" style="background:linear-gradient(90deg,var(--accent),var(--accent2));"></div>
-      <div class="price-name">Basic</div>
-      <div class="price-amount">LKR 999</div>
-      <div class="price-note">One-time · No renewal</div>
-      <div class="price-divider"></div>
-      <div class="price-feature"><span class="chk yes">✔</span>Unicode & FM Legacy Fonts</div>
-      <div class="price-feature"><span class="chk yes">✔</span>Lifetime Free Updates</div>
-      <div class="price-feature"><span class="chk no">✖</span>Sinhala & English Voice Typing</div>
-      <div class="price-feature"><span class="chk no">✖</span>Unicode ↔ FM Converter</div>
-      <button class="price-cta basic" onclick="openCartWith('Basic')">Add to Cart — LKR 999</button>
-    </div>
-
     <div class="price-card featured">
       <div class="price-top-bar" style="background:linear-gradient(90deg,var(--purple),#6A4FFF);"></div>
-      <div class="price-badge">Recommended</div>
-      <div class="price-name" style="color:var(--purple);">Pro</div>
-      <div class="price-amount" style="color:var(--text);">LKR 1,999</div>
-      <div class="price-note">One-time · No renewal</div>
+      <div class="price-badge">Special Offer</div>
+      <div class="price-name" style="color:var(--purple);">Premium License</div>
+      <div class="price-amount">
+        <span class="price-amount-strikethrough">LKR 3,999</span>
+        <span style="color:var(--text);">LKR 1,999</span>
+      </div>
+      <div class="price-note">One-time payment · No renewal fees</div>
       <div class="price-divider"></div>
-      <div class="price-feature"><span class="chk yes">✓</span>Everything in Basic</div>
-      <div class="price-feature"><span class="chk star">✦</span>Sinhala & English Voice Typing</div>
-      <div class="price-feature"><span class="chk star">✦</span>Smart Unicode ↔ FM Converter</div>
-      <div class="price-feature"><span class="chk star">✦</span>Desktop To-Do List Widget</div>
-      <div class="price-feature"><span class="chk star">✦</span>Daily Tasks Management</div>
-      <div class="price-feature"><span class="chk star">✦</span>Quick Snippets / Scratchpad</div>
-      <button class="price-cta pro" onclick="openCartWith('Pro')">Add to Cart — LKR 1,999</button>
+      <div class="price-feature"><span class="chk yes">✓</span>Fast Unicode & FM Legacy Typing</div>
+      <div class="price-feature"><span class="chk yes">✓</span>Sinhala & Eng Background Voice Typing</div>
+      <div class="price-feature"><span class="chk yes">✓</span>Smart Unicode ↔ FM Converter</div>
+      <div class="price-feature"><span class="chk yes">✓</span>Desktop To-Do List Widget</div>
+      <div class="price-feature"><span class="chk yes">✓</span>Lifetime Free Updates</div>
+      <div class="price-feature"><span class="chk yes">✓</span>Premium VIP Support</div>
+      <button class="price-cta pro" onclick="openCart()">Get Lifetime License — LKR 1,999</button>
     </div>
 
   </div>
@@ -940,7 +949,7 @@ nav{
         <div class="pay-row"><span class="pay-row-icon">📍</span><span>Gelioya Branch</span></div>
       </div>
       <div class="pay-card-bottom">
-        <a href="https://wa.me/94741704804?text=Hi%2C+I+made+a+bank+transfer+to+Commercial+Bank+for+ADIA+QBoard." target="_blank" class="pay-action">
+        <a href="https://wa.me/94717373072?text=Hi%2C+I+made+a+bank+transfer+to+Commercial+Bank+for+ADIA+QBoard." target="_blank" class="pay-action">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Send Receipt via WhatsApp
         </a>
@@ -1000,7 +1009,7 @@ nav{
       <div class="pay-steps-title">📋 How it works</div>
       <div class="pay-step-row">
         <div class="pay-step-num">1</div>
-        <div class="pay-step-text">Choose your package — <strong>Basic</strong> or <strong>Pro</strong></div>
+        <div class="pay-step-text">Click <strong>Add to Cart</strong> or contact us via WhatsApp</div>
       </div>
       <div class="pay-step-row">
         <div class="pay-step-num">2</div>
@@ -1057,7 +1066,7 @@ nav{
       <div class="step-num">3</div>
       <div class="step-body">
         <h4>Start the 7-Day Free Trial</h4>
-        <p>Choose your package (Basic or Pro) at the welcome screen. The trial begins immediately — no payment required to try.</p>
+        <p>Choose your package at the welcome screen. The trial begins immediately — no payment required to try.</p>
       </div>
     </div>
     <div class="install-step">
@@ -1167,36 +1176,22 @@ nav{
   <div class="modal" style="position:relative;">
     <button class="modal-close" onclick="closeCart()">✕</button>
     <h3>🛒 Add to Cart</h3>
-    <p class="modal-sub">Select your package and contact us to purchase.</p>
-    <div class="modal-pkg" id="pkgBasic" onclick="selectPkg('Basic')" >
-      <div class="mpk-dot" id="dotBasic"></div>
+    <p class="modal-sub">Get your lifetime license of ADIA QBoard today.</p>
+    <div class="modal-pkg sel" style="border-color: var(--accent);">
+      <div class="mpk-dot" style="background: var(--accent);"></div>
       <div>
-        <div class="mpk-name">Basic</div>
-        <div class="mpk-price">LKR 999 · one-time</div>
-      </div>
-    </div>
-    <div class="modal-pkg" id="pkgPro" onclick="selectPkg('Pro')">
-      <div class="mpk-dot" id="dotPro"></div>
-      <div>
-        <div class="mpk-name">Pro <span style="background:rgba(180,120,255,.2);color:var(--purple);font-size:10px;padding:1px 7px;border-radius:10px;">Recommended</span></div>
-        <div class="mpk-price">LKR 1,999 · one-time</div>
+        <div class="mpk-name">Lifetime License <span style="background:rgba(255,80,80,.2);color:var(--red);font-size:10px;padding:1px 7px;border-radius:10px;">50% OFF</span></div>
+        <div class="mpk-price"><span style="text-decoration:line-through;margin-right:6px;color:var(--dim);">LKR 3,999</span>LKR 1,999 · one-time</div>
       </div>
     </div>
     <div class="modal-divider"></div>
-    <p style="font-size:12px;color:var(--dim);margin-bottom:14px;">Send your selected package + payment to WhatsApp. We'll reply with your activation key.</p>
-    <a id="waLink" href="#" class="modal-wa" target="_blank">
+    <p style="font-size:12px;color:var(--dim);margin-bottom:14px;">Click below to send your purchase request to our WhatsApp. We'll reply with payment details.</p>
+    <a id="waLink" href="https://wa.me/94717373072?text=ADIA%20QBoard%20Purchase%20Request%0A%0AI%20would%20like%20to%20purchase%20the%20Lifetime%20License%20for%20LKR%201%2C999.%20Please%20send%20payment%20details." class="modal-wa" target="_blank">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Order via WhatsApp
     </a>
   </div>
 </div>
-
-<button class="cart-float" onclick="openCart()" title="Add to Cart">
-  🛒<span class="cart-badge" id="cartBadge">1</span>
-</button>
-<a class="wa-float" href="https://wa.me/94741704804" target="_blank" title="WhatsApp">
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
 
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
@@ -1238,12 +1233,11 @@ const faqs = [
   { q:"Does ADIA QBoard work offline?", a:"Yes, 100%. ADIA QBoard runs entirely on your PC with no internet connection required (except for the Voice Typing feature). Your keystrokes never leave your computer." },
   { q:"Which Windows versions are supported?", a:"Windows 10 and Windows 11 (64-bit). Windows 7/8 are not officially supported." },
   { q:"Does it work in Photoshop and MS Word?", a:"Yes! ADIA QBoard uses a global keyboard hook that works in virtually any Windows application — Photoshop, Illustrator, MS Word, Notepad, Chrome, and more." },
-  { q:"What is the difference between Basic and Pro?", a:"Basic includes Unicode & FM Legacy typing, offline security, and lifetime updates. Pro adds Sinhala & English Voice Typing, the Unicode↔FM Converter, Desktop To-Do Widget, Priority VIP Support, and the ability to request custom features." },
   { q:"How does the activation key work?", a:"Each activation key is tied to your specific PC (Hardware ID / HWID). After payment, send your HWID to our WhatsApp. We generate a key specifically for your machine and send it back — usually within minutes." },
   { q:"Can I use one key on multiple computers?", a:"No. Each license key is hardware-locked to one PC. If you need it on another machine, please contact us for a transfer." },
   { q:"Is there a free trial?", a:"Yes! You get a 7-day free trial of the Pro version when you install. No payment card required." },
   { q:"What FM fonts are supported?", a:"FM Malithi, FM Abhaya, FM Bindumathi and most other FM series legacy fonts. The converter supports 1,334+ character mappings." },
-  { q:"How do I get support?", a:"Contact us directly on WhatsApp: +94 741704804. Pro users receive priority responses." },
+  { q:"How do I get support?", a:"Contact us directly on WhatsApp: +94 717 373 072. Priority responses available for licensed users." },
 ];
 
 const faqList = document.getElementById('faqList');
@@ -1275,27 +1269,16 @@ function toggleFaq(i){
   }
 }
 
-let selectedPkg = 'Pro';
-let cartCount   = 0;
-
 function openCart(){ document.getElementById('cartModal').classList.add('open'); }
-function openCartWith(pkg){ selectPkg(pkg); openCart(); }
 function closeCart(){ document.getElementById('cartModal').classList.remove('open'); }
 function closeCartOutside(e){ if(e.target===document.getElementById('cartModal')) closeCart(); }
 
-function selectPkg(pkg){
-  selectedPkg = pkg;
-  document.getElementById('pkgBasic').classList.toggle('sel', pkg==='Basic');
-  document.getElementById('pkgPro').classList.toggle('sel', pkg==='Pro');
-  document.getElementById('dotBasic').style.background = pkg==='Basic' ? 'var(--accent)' : '';
-  document.getElementById('dotPro').style.background   = pkg==='Pro'   ? 'var(--accent)' : '';
-  cartCount = 1;
-  document.getElementById('cartBadge').classList.add('show');
-  const msg = encodeURIComponent(`ADIA QBoard Purchase Request\nPackage: ${pkg} - LKR ${pkg==='Pro'?'1,999':'999'}\n\nI would like to purchase ADIA QBoard ${pkg}. Please send payment details.`);
-  document.getElementById('waLink').href = `https://wa.me/94741704804?text=${msg}`;
+/* ── Mobile Menu Toggle ─────────────────── */
+function toggleMobileMenu() {
+  if (window.innerWidth <= 700) {
+    document.getElementById('mobileNav').classList.toggle('active');
+  }
 }
-
-selectPkg('Pro');
 
 const revealEls = document.querySelectorAll('.reveal');
 const observer  = new IntersectionObserver(entries => {
