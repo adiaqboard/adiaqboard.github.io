@@ -50,13 +50,6 @@ nav{
 .nav-logo{display:flex;align-items:center;gap:12px;}
 .nav-logo img{width:38px;height:38px;border-radius:8px;}
 .nav-logo span{font-weight:700;font-size:17px;}
-
-/* Mobile Menu Button */
-.mobile-menu-btn{
-  display:none;background:none;border:none;color:var(--text);
-  font-size:24px;cursor:pointer;
-}
-
 .nav-links{display:flex;align-items:center;gap:6px;}
 .nav-links a{
   color:var(--dim);text-decoration:none;font-size:13px;font-weight:500;
@@ -568,67 +561,10 @@ nav{
 .reveal{opacity:0;transform:translateY(30px);transition:all .6s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
-/* ── Mobile Navigation Update ─────────────────── */
 @media(max-width:700px){
   nav{padding:0 16px;}
-  .mobile-menu-btn{display:block;}
-  .nav-links{
-    position:absolute;top:64px;left:0;right:0;
-    background:rgba(10,14,24,0.95);backdrop-filter:blur(20px);
-    border-bottom:1px solid var(--border);
-    flex-direction:column;padding:20px;gap:12px;
-    display:none; /* Hidden by default on mobile */
-  }
-  .nav-links.active{display:flex;}
-  .nav-links a{width:100%;text-align:center;padding:12px;}
+  .nav-links{display:none;}
   .pricing-cards{grid-template-columns:1fr;}
-}
-
-/* ── SPLASH SCREEN ── */
-#splash{
-  position:fixed;inset:0;z-index:9999;
-  background:#0A0E18;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:24px;
-  transition:opacity .6s ease, visibility .6s ease;
-}
-#splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
-.splash-logo{
-  width:120px;height:120px;border-radius:24px;
-  animation:splashPop .6s cubic-bezier(.34,1.56,.64,1) .2s both,
-            splashGlow 2s ease-in-out 1s infinite alternate;
-  filter:drop-shadow(0 0 0px rgba(255,100,20,0));
-}
-.splash-title{
-  font-size:28px;font-weight:800;letter-spacing:.5px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  animation:fadeUp .6s .7s ease both;
-}
-.splash-tagline{
-  font-size:13px;color:var(--dim);
-  animation:fadeUp .5s .9s ease both;
-}
-.splash-bar{
-  width:160px;height:3px;background:var(--border);border-radius:2px;overflow:hidden;
-  animation:fadeUp .5s .9s ease both;
-}
-.splash-bar-fill{
-  height:100%;width:0;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  border-radius:2px;
-  animation:loadBar 1.4s 1s ease forwards;
-}
-@keyframes splashPop{
-  from{opacity:0;transform:scale(.4) rotate(-10deg);}
-  to{opacity:1;transform:scale(1) rotate(0deg);}
-}
-@keyframes splashGlow{
-  from{filter:drop-shadow(0 0 16px rgba(255,100,20,.45));}
-  to{filter:drop-shadow(0 0 32px rgba(255,185,50,.7));}
-}
-@keyframes loadBar{
-  to{width:100%;}
 }
 
 /* ── RATINGS SECTION ── */
@@ -779,26 +715,18 @@ nav{
 </head>
 <body>
 
-<div id="splash">
-  <img class="splash-logo" src="logo.webp" alt="ADIA QBoard Logo" onerror="this.src='logo.png'">
-  <div class="splash-title">ADIA QBoard</div>
-  <div class="splash-tagline">Accurate Dynamic Input Assistant Quick Board</div>
-  <div class="splash-bar"><div class="splash-bar-fill"></div></div>
-</div>
-
 <nav>
   <div class="nav-logo">
     <img src="logo.webp" alt="ADIA QBoard" id="navLogo" onerror="this.src='logo.png'">
     <span>ADIA QBoard</span>
   </div>
-  <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-  <div class="nav-links" id="mobileNav">
-    <a href="#features" onclick="toggleMobileMenu()">Features</a>
-    <a href="#pricing" onclick="toggleMobileMenu()">Pricing</a>
-    <a href="#install" onclick="toggleMobileMenu()">Install</a>
-    <a href="#faq" onclick="toggleMobileMenu()">FAQ</a>
-    <a href="#ratings" onclick="toggleMobileMenu()">⭐ Reviews</a>
-    <a href="#" class="nav-cta" onclick="openCart(); toggleMobileMenu();">🛒 Get It</a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#install">Install</a>
+    <a href="#faq">FAQ</a>
+    <a href="#ratings">⭐ Reviews</a>
+    <a href="#" class="nav-cta" onclick="openCart()">🛒 Get It</a>
   </div>
 </nav>
 
@@ -1233,6 +1161,7 @@ const faqs = [
   { q:"Does ADIA QBoard work offline?", a:"Yes, 100%. ADIA QBoard runs entirely on your PC with no internet connection required (except for the Voice Typing feature). Your keystrokes never leave your computer." },
   { q:"Which Windows versions are supported?", a:"Windows 10 and Windows 11 (64-bit). Windows 7/8 are not officially supported." },
   { q:"Does it work in Photoshop and MS Word?", a:"Yes! ADIA QBoard uses a global keyboard hook that works in virtually any Windows application — Photoshop, Illustrator, MS Word, Notepad, Chrome, and more." },
+  { q:"What is the difference between Basic and Pro?", a:"Basic includes Unicode & FM Legacy typing, offline security, and lifetime updates. Pro adds Sinhala & English Voice Typing, the Unicode↔FM Converter, Desktop To-Do Widget, Priority VIP Support, and the ability to request custom features." },
   { q:"How does the activation key work?", a:"Each activation key is tied to your specific PC (Hardware ID / HWID). After payment, send your HWID to our WhatsApp. We generate a key specifically for your machine and send it back — usually within minutes." },
   { q:"Can I use one key on multiple computers?", a:"No. Each license key is hardware-locked to one PC. If you need it on another machine, please contact us for a transfer." },
   { q:"Is there a free trial?", a:"Yes! You get a 7-day free trial of the Pro version when you install. No payment card required." },
@@ -1273,24 +1202,11 @@ function openCart(){ document.getElementById('cartModal').classList.add('open');
 function closeCart(){ document.getElementById('cartModal').classList.remove('open'); }
 function closeCartOutside(e){ if(e.target===document.getElementById('cartModal')) closeCart(); }
 
-/* ── Mobile Menu Toggle ─────────────────── */
-function toggleMobileMenu() {
-  if (window.innerWidth <= 700) {
-    document.getElementById('mobileNav').classList.toggle('active');
-  }
-}
-
 const revealEls = document.querySelectorAll('.reveal');
 const observer  = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 revealEls.forEach(el => observer.observe(el));
-
-window.addEventListener('load', function() {
-  setTimeout(function() {
-    document.getElementById('splash').classList.add('hidden');
-  }, 2600);
-});
 
 let selectedStars = 0;
 function selectStar(val) {
