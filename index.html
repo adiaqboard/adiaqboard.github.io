@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -617,7 +618,20 @@ nav{
   nav{padding:0 20px;}
   .nav-links{display:none;}
   .mobile-menu-btn {display:block;}
-  .pricing-cards{grid-template-columns:1fr;}
+  
+  .pricing-cards {
+    flex-direction: column; 
+    align-items: center;
+    gap: 30px;
+  }
+  .price-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 30px 20px;
+  }
+  .price-amount {
+    font-size: 36px;
+  }
 }
 
 .ratings-section{
