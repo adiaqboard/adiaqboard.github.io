@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,59 +11,127 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+Sinhala:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
+/* ── Design tokens ─────────────────────────────────────────── */
 :root {
-  --bg:      #0A0E18;
-  --bg2:     #0E1628;
-  --card:    #121E36;
-  --card2:   #162440;
+  --bg:      #080C15;
+  --bg2:     #0C1422;
+  --card:    #101828;
+  --card2:   #131F34;
   --accent:  #FFB932;
   --accent2: #FF6414;
   --text:    #E4EEFF;
-  --dim:     #6A82A8;
-  --border:  #1E3256;
+  --dim:     #647898;
+  --border:  #1C2E4A;
   --green:   #32C878;
   --purple:  #B478FF;
   --red:     #FF5050;
   --radius:  14px;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Space Grotesk',sans-serif;
-  min-height:100vh;
-  overflow-x:hidden;
+  --nav-h:   64px;
 }
 
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  backdrop-filter:blur(20px);
-  background:rgba(10,14,24,.85);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 40px;height:64px;
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── Alert banner ──────────────────────────────────────────── */
+.alert-banner {
+  background: linear-gradient(90deg, rgba(255,185,50,.08), rgba(255,100,20,.08));
+  border-bottom: 1px solid rgba(255,185,50,.18);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--dim);
+  text-align: center;
+  position: relative;
+  z-index: 101;
+  flex-wrap: wrap;
 }
-.nav-logo{display:flex;align-items:center;gap:12px;}
-.nav-logo img{width:38px;height:38px;border-radius:8px;}
-.nav-logo span{font-weight:700;font-size:17px;}
-.nav-links{display:flex;align-items:center;gap:6px;}
-.nav-links a{
-  color:var(--dim);text-decoration:none;font-size:13px;font-weight:500;
-  padding:6px 14px;border-radius:8px;transition:all .2s;
+.alert-banner strong { color: var(--accent); }
+.alert-banner span.tag {
+  background: rgba(255,185,50,.15);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 10px;
+  padding: 2px 9px;
+  border-radius: 20px;
+  letter-spacing: .4px;
+  text-transform: uppercase;
 }
-.nav-links a:hover{color:var(--text);background:var(--card);}
-.nav-cta{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#140E03!important;font-weight:700!important;
-  padding:8px 20px!important;border-radius:10px!important;
+.alert-banner .sinhala-note {
+  font-family: 'Noto Sans Sinhala', sans-serif;
+  font-size: 11.5px;
+  color: var(--green);
+  font-weight: 700;
 }
-.nav-cta:hover{opacity:.9;background:linear-gradient(135deg,var(--accent),var(--accent2))!important;}
+.alert-close {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--dim);
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color .2s;
+}
+.alert-close:hover { color: var(--text); }
+
+/* ── Nav ───────────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(24px);
+  background: rgba(8, 12, 21, .88);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: var(--nav-h);
+}
+.nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.nav-logo img { width: 36px; height: 36px; border-radius: 8px; }
+.nav-logo span { font-weight: 700; font-size: 16px; color: var(--text); }
+.nav-links { display: flex; align-items: center; gap: 2px; }
+.nav-links a {
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 8px;
+  transition: all .2s;
+}
+.nav-links a:hover { color: var(--text); background: var(--card); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--accent), var(--accent2)) !important;
+  color: #140E03 !important;
+  font-weight: 700 !important;
+  padding: 8px 20px !important;
+  border-radius: 10px !important;
+  margin-left: 6px;
+}
+.nav-cta:hover { opacity: .9 !important; background: linear-gradient(135deg, var(--accent), var(--accent2)) !important; }
 
 .mobile-menu-btn {
   display: none;
@@ -72,13 +139,13 @@ nav{
   border: none;
   color: var(--text);
   cursor: pointer;
-  padding: 5px;
+  padding: 6px;
 }
 .mobile-nav-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(10,14,24,0.95);
-  backdrop-filter: blur(15px);
+  background: rgba(8, 12, 21, .97);
+  backdrop-filter: blur(16px);
   z-index: 200;
   display: flex;
   flex-direction: column;
@@ -86,129 +153,224 @@ nav{
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity .3s ease;
 }
-.mobile-nav-overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
+.mobile-nav-overlay.open { opacity: 1; pointer-events: all; }
 .mobile-nav-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 20px; right: 20px;
   background: var(--card2);
   border: none;
   color: var(--dim);
-  font-size: 20px;
-  width: 40px;
-  height: 40px;
+  font-size: 18px;
+  width: 40px; height: 40px;
   border-radius: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color .2s;
 }
+.mobile-nav-close:hover { color: var(--text); }
 .mobile-nav-links {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 28px;
   text-align: center;
 }
 .mobile-nav-links a {
   color: var(--text);
   text-decoration: none;
-  font-size: 20px;
-  font-weight: 600;
-  transition: color 0.2s;
+  font-size: 22px;
+  font-weight: 700;
+  transition: color .2s;
 }
-.mobile-nav-links a:hover {
-  color: var(--accent);
-}
+.mobile-nav-links a:hover { color: var(--accent); }
 
-.hero{
-  min-height:100vh;
-  display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:100px 40px 60px;
-  position:relative;overflow:hidden;
+/* ── Hero ──────────────────────────────────────────────────── */
+.hero {
+  min-height: calc(100vh - var(--nav-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 40px 60px;
+  position: relative;
+  overflow: hidden;
 }
-.hero-glow{
-  position:absolute;top:10%;left:50%;transform:translateX(-50%);
-  width:700px;height:700px;
-  background:radial-gradient(ellipse,rgba(255,185,50,.12) 0%,transparent 70%);
-  pointer-events:none;
+.hero-glow {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 800px;
+  background: radial-gradient(ellipse, rgba(255,185,50,.1) 0%, transparent 65%);
+  pointer-events: none;
 }
-.hero-grid{
-  position:absolute;inset:0;
-  background-image:linear-gradient(rgba(30,50,86,.3) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(30,50,86,.3) 1px,transparent 1px);
-  background-size:60px 60px;
-  mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 0%,transparent 100%);
+.hero-glow-2 {
+  position: absolute;
+  bottom: 0; right: -10%;
+  width: 400px; height: 400px;
+  background: radial-gradient(ellipse, rgba(180,120,255,.08) 0%, transparent 70%);
+  pointer-events: none;
 }
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--card);border:1px solid var(--border);
-  border-radius:50px;padding:6px 16px;font-size:12px;
-  color:var(--accent);font-weight:600;margin-bottom:28px;
-  animation:fadeUp .6s ease forwards;
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(28,46,74,.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28,46,74,.25) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 0%, transparent 100%);
 }
-.hero h1{
-  font-size:clamp(36px,6vw,72px);font-weight:700;line-height:1.1;
-  margin-bottom:20px;
-  animation:fadeUp .7s .1s ease both;
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  margin: 0 auto;
 }
-.hero h1 span{
-  background: linear-gradient(135deg,var(--accent),var(--accent2));
-  background-clip: text;              /* standard */
-  -webkit-background-clip: text;      /* Chrome/Safari */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,185,50,.1);
+  border: 1px solid rgba(255,185,50,.22);
+  border-radius: 50px;
+  padding: 6px 18px;
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: .4px;
+  margin-bottom: 28px;
+  animation: fadeUp .5s ease both;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(.8); }
+}
+.hero h1 {
+  font-size: clamp(40px, 6.5vw, 76px);
+  font-weight: 700;
+  line-height: 1.07;
+  margin-bottom: 22px;
+  animation: fadeUp .6s .1s ease both;
+  letter-spacing: -.02em;
+}
+.hero h1 .grad {
+  background: linear-gradient(130deg, var(--accent) 0%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.hero-sub{
-  font-size:18px;color:var(--dim);max-width:560px;margin:0 auto 40px;line-height:1.7;
-  animation:fadeUp .7s .2s ease both;
+.hero-sinhala {
+  font-family: 'Noto Sans Sinhala', sans-serif;
+  font-size: 15px;
+  color: var(--dim);
+  margin-bottom: 8px;
+  animation: fadeUp .6s .15s ease both;
+  letter-spacing: .3px;
 }
-.hero-sinhala{
-  font-family:'Noto Sans Sinhala',sans-serif;
-  font-size:15px;color:var(--dim);margin-bottom:40px;
-  animation:fadeUp .7s .25s ease both;
+.hero-sub {
+  font-size: 17px;
+  color: var(--dim);
+  max-width: 520px;
+  margin: 0 auto 42px;
+  line-height: 1.75;
+  animation: fadeUp .6s .2s ease both;
 }
-.hero-btns{
-  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
-  animation:fadeUp .7s .3s ease both;
+.hero-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp .6s .3s ease both;
 }
-.btn-primary{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#140E03;font-weight:700;font-size:15px;
-  padding:14px 32px;border-radius:12px;border:none;
-  cursor:pointer;text-decoration:none;display:inline-flex;
-  align-items:center;gap:8px;transition:all .2s;
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,185,50,.3);}
-.btn-outline{
-  background:transparent;color:var(--text);font-weight:600;font-size:15px;
-  padding:14px 32px;border-radius:12px;
-  border:1px solid var(--border);cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;gap:8px;transition:all .2s;
-}
-.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
 
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #140E03;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all .2s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(255,185,50,.3); }
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all .2s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+/* hero stats strip */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  animation: fadeUp .6s .4s ease both;
+  flex-wrap: wrap;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-size: 26px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-label { font-size: 12px; color: var(--dim); font-weight: 500; }
+.hero-stat-sep { width: 1px; height: 36px; background: var(--border); }
+
+/* ── Screenshots slider ────────────────────────────────────── */
 .screenshots {
-  padding: 40px 40px 80px;
-  animation: fadeUp .7s .4s ease both;
+  padding: 0 40px 80px;
 }
 .slider-container {
   position: relative;
-  max-width: 919px;
+  max-width: 900px;
   margin: 0 auto;
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
   background: var(--card2);
   border: 1px solid var(--border);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
 }
 .slider-track {
   display: flex;
-  transition: transform 0.4s ease-in-out;
-  width: 100%;
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
 }
 .slide {
   min-width: 100%;
@@ -218,623 +380,561 @@ nav{
   justify-content: center;
   background: var(--bg);
 }
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.slide img { width: 100%; height: 100%; object-fit: cover; }
 .slider-btn {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(10, 14, 24, 0.6);
-  color: white;
-  border: 1px solid var(--border);
-  width: 44px;
-  height: 44px;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(8,12,21,.65);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,.1);
+  width: 42px; height: 42px;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  backdrop-filter: blur(4px);
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s;
+  backdrop-filter: blur(6px);
   z-index: 10;
 }
-.slider-btn:hover {
-  background: var(--accent);
-  color: #140E03;
-  border-color: var(--accent);
-}
+.slider-btn:hover { background: var(--accent); color: #140E03; border-color: var(--accent); }
 .slider-btn.prev { left: 16px; }
 .slider-btn.next { right: 16px; }
-
 .slider-dots {
   position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
+  bottom: 14px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 7px;
   z-index: 10;
-  background: rgba(0,0,0,0.4);
-  padding: 6px 12px;
+  background: rgba(0,0,0,.45);
+  padding: 5px 12px;
   border-radius: 20px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
 }
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
+.dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.35); cursor: pointer; transition: .2s; }
+.dot.active { background: var(--accent); transform: scale(1.4); }
+
+/* ── Section helpers ───────────────────────────────────────── */
+.section { padding: 88px 40px; max-width: 1100px; margin: 0 auto; }
+.section-tag {
+  display: inline-block;
+  background: rgba(255,185,50,.1);
+  color: var(--accent);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 5px 14px;
+  border-radius: 50px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.section h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 700; margin-bottom: 14px; letter-spacing: -.02em; }
+.section-sub { color: var(--dim); font-size: 16px; max-width: 520px; line-height: 1.75; }
+
+/* ── Features ──────────────────────────────────────────────── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 16px;
+  margin-top: 52px;
+}
+.feature-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 30px;
+  transition: all .25s;
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  transition: transform .3s;
+  transform-origin: left;
+}
+.feature-card:hover { border-color: rgba(255,185,50,.3); transform: translateY(-3px); box-shadow: 0 16px 44px rgba(0,0,0,.35); }
+.feature-card:hover::before { transform: scaleX(1); }
+.feat-icon { font-size: 26px; margin-bottom: 14px; }
+.feat-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.feat-desc { font-size: 13px; color: var(--dim); line-height: 1.65; }
+
+/* ── Pricing ───────────────────────────────────────────────── */
+.pricing-wrap { padding: 88px 40px; }
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  max-width: 800px;
+  margin: 52px auto 0;
+}
+.price-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 38px;
+  position: relative;
+  overflow: hidden;
+  transition: all .25s;
+  width: 100%; max-width: 360px;
+}
+.price-card:hover { transform: translateY(-5px); box-shadow: 0 20px 56px rgba(0,0,0,.4); }
+.price-card.featured {
+  border-color: rgba(180,120,255,.4);
+  background: linear-gradient(160deg, var(--card) 0%, rgba(24,16,48,.8) 100%);
+}
+.price-badge {
+  position: absolute; top: 18px; right: 18px;
+  background: rgba(180,120,255,.18);
+  color: var(--purple);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .6px;
+  padding: 3px 11px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+.price-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 22px 22px 0 0; }
+.price-name { font-size: 14px; font-weight: 700; margin-bottom: 8px; letter-spacing: .2px; }
+.price-amount { font-size: 44px; font-weight: 800; line-height: 1; margin-bottom: 5px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; letter-spacing: -.03em; }
+.price-amount-strikethrough { font-size: 20px; color: var(--red); text-decoration: line-through; font-weight: 600; opacity: .7; }
+.price-note { font-size: 11px; color: var(--dim); margin-bottom: 26px; }
+.price-divider { height: 1px; background: var(--border); margin-bottom: 22px; }
+.price-feature {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; margin-bottom: 13px; line-height: 1.5;
+}
+.price-feature .chk {
+  width: 17px; height: 17px; border-radius: 5px;
+  flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+}
+.chk.yes { background: rgba(50,200,120,.18); color: var(--green); }
+.chk.star { background: rgba(180,120,255,.18); color: var(--purple); }
+.price-cta {
+  display: block; text-align: center; margin-top: 26px;
+  padding: 13px; border-radius: 11px;
+  font-weight: 700; font-size: 14px;
+  text-decoration: none; cursor: pointer;
+  border: none; width: 100%;
+  transition: all .2s;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.price-cta.pro { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #140E03; }
+.price-cta.pro:hover { opacity: .9; transform: translateY(-1px); }
+
+/* ── Payment tabs ──────────────────────────────────────────── */
+.payment-section { padding: 88px 40px; max-width: 1100px; margin: 0 auto; }
+.pay-tabs-container { display: flex; justify-content: center; margin: 32px 0 40px; }
+.pay-tabs {
+  display: inline-flex;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 5px;
+  gap: 4px;
+}
+.pay-tab {
+  background: transparent; border: none; border-radius: 40px;
+  padding: 11px 28px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13.5px; font-weight: 700;
+  color: var(--dim);
   cursor: pointer;
-  transition: 0.2s;
+  transition: all .25s;
+  display: flex; align-items: center; gap: 8px;
 }
-.dot.active {
-  background: var(--accent);
-  transform: scale(1.3);
+.pay-tab.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #140E03;
+  box-shadow: 0 4px 16px rgba(255,185,50,.28);
+}
+.pay-tab:not(.active):hover { color: var(--text); }
+.pay-view { display: none; animation: fadeView .35s ease; }
+.pay-view.active { display: block; }
+@keyframes fadeView { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── QR Modern ─────────────────────────────────────────────── */
+.pay-qr-modern {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  display: flex;
+  align-items: stretch;
+  max-width: 860px;
+  margin: 0 auto;
+  overflow: hidden;
+  box-shadow: 0 24px 56px rgba(0,0,0,.3);
+}
+.qr-left {
+  padding: 48px 36px;
+  background: linear-gradient(145deg, var(--card2) 0%, rgba(24,16,48,.25) 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border-right: 1px solid var(--border);
+  width: 42%;
+}
+.qr-img-box {
+  background: white;
+  padding: 16px;
+  border-radius: 18px;
+  margin-bottom: 22px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.45);
+}
+.qr-img-box img { width: 170px; height: 170px; display: block; border-radius: 8px; object-fit: cover; }
+.qr-left h4 { font-size: 16px; font-weight: 800; margin-bottom: 5px; color: var(--text); }
+.qr-left p { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.qr-right { padding: 48px 40px; width: 58%; display: flex; flex-direction: column; justify-content: center; }
+.qr-right h3 { font-size: 19px; font-weight: 700; margin-bottom: 28px; color: var(--text); }
+.qr-timeline { list-style: none; padding: 0; margin: 0 0 32px; }
+.qr-timeline li {
+  display: flex; align-items: flex-start; gap: 16px;
+  margin-bottom: 22px;
+  font-size: 13.5px; color: var(--dim); line-height: 1.65;
+}
+.qr-timeline li:last-child { margin-bottom: 0; }
+.step-circle {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(255,185,50,.14); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 12px; flex-shrink: 0; margin-top: 2px;
+}
+.qr-timeline li strong { color: var(--text); }
+.qr-wa-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  background: rgba(37,211,102,.1); border: 1px solid rgba(37,211,102,.28);
+  color: #25D366; font-weight: 700; font-size: 14px;
+  padding: 14px 28px; border-radius: 12px;
+  text-decoration: none; transition: all .2s; width: fit-content;
+}
+.qr-wa-btn:hover { background: rgba(37,211,102,.18); transform: translateY(-2px); }
+
+/* ── Bank cards ────────────────────────────────────────────── */
+.pay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.pay-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden;
+  transition: all .25s;
+}
+.pay-card:hover { transform: translateY(-4px); border-color: rgba(255,185,50,.3); box-shadow: 0 16px 48px rgba(0,0,0,.35); }
+.pay-card-top { padding: 22px 22px 16px; border-bottom: 1px solid var(--border); }
+.pay-card-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.pay-bank-img { width: 42px; height: 42px; border-radius: 10px; object-fit: contain; background: rgba(255,255,255,.06); padding: 4px; border: 1px solid rgba(255,255,255,.08); }
+.pay-bank-fallback { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; border: 1px solid var(--border); flex-shrink: 0; }
+.pay-type-badge { font-size: 9px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; }
+.pay-name { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+.pay-row { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--dim); margin-bottom: 6px; line-height: 1.5; }
+.pay-row-icon { flex-shrink: 0; opacity: .5; font-size: 11px; margin-top: 1px; }
+.pay-card-bottom { padding: 14px 22px; }
+.pay-action {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: rgba(37,211,102,.08); border: 1px solid rgba(37,211,102,.2);
+  color: #25D366; font-size: 12px; font-weight: 700;
+  border-radius: 10px; padding: 10px; text-decoration: none;
+  transition: all .2s; cursor: pointer;
+}
+.pay-action:hover { background: rgba(37,211,102,.16); }
+
+/* ── Install ───────────────────────────────────────────────── */
+.install-section { padding: 88px 40px; max-width: 960px; margin: 0 auto; }
+.install-steps { margin-top: 44px; display: flex; flex-direction: column; gap: 0; }
+.install-step {
+  display: flex; gap: 24px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--border);
+}
+.install-step:last-child { border-bottom: none; }
+.step-num {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 16px; color: #140E03;
+}
+.step-body h4 { font-size: 15px; font-weight: 700; margin-bottom: 7px; }
+.step-body p { font-size: 13px; color: var(--dim); line-height: 1.75; }
+.step-body code {
+  display: inline-block; background: var(--card2);
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 2px 9px; font-family: Consolas, monospace;
+  font-size: 12px; color: var(--accent); margin-top: 8px;
 }
 
-.section{padding:80px 40px;max-width:1100px;margin:0 auto;}
-.section-tag{
-  display:inline-block;background:rgba(255,185,50,.1);
-  color:var(--accent);font-size:11px;font-weight:700;letter-spacing:1px;
-  padding:5px 14px;border-radius:50px;margin-bottom:16px;
-  text-transform:uppercase;
+/* ── FAQ ───────────────────────────────────────────────────── */
+.faq-section { padding: 88px 40px; max-width: 780px; margin: 0 auto; }
+.faq-list { margin-top: 44px; display: flex; flex-direction: column; gap: 10px; }
+.faq-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 13px; overflow: hidden; cursor: pointer;
+  transition: border-color .2s;
 }
-.section h2{font-size:clamp(26px,4vw,42px);font-weight:700;margin-bottom:12px;}
-.section-sub{color:var(--dim);font-size:16px;max-width:520px;line-height:1.7;}
+.faq-item:hover { border-color: rgba(255,185,50,.28); }
+.faq-item.open { border-color: rgba(255,185,50,.35); }
+.faq-q {
+  padding: 18px 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 14px; font-weight: 600; user-select: none;
+  gap: 16px;
+}
+.faq-icon {
+  width: 24px; height: 24px; border-radius: 6px;
+  background: rgba(255,185,50,.1); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; transition: transform .25s; flex-shrink: 0;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease; font-size: 13px; color: var(--dim); line-height: 1.75; }
+.faq-a-inner { padding: 0 22px 18px; }
 
-.features-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:16px;margin-top:48px;
+/* ── Ratings ───────────────────────────────────────────────── */
+.ratings-section { padding: 88px 40px; max-width: 1100px; margin: 0 auto; }
+.ratings-hero { display: grid; grid-template-columns: 300px 1fr; gap: 28px; margin-bottom: 40px; }
+.ratings-score-card {
+  background: linear-gradient(145deg, var(--card), rgba(255,185,50,.05));
+  border: 1px solid rgba(255,185,50,.22);
+  border-radius: 22px; padding: 40px 30px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; position: relative; overflow: hidden;
 }
-.feature-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--radius);padding:28px;
-  transition:all .25s;position:relative;overflow:hidden;
+.ratings-score-card::before {
+  content: ''; position: absolute; top: -50px; right: -50px;
+  width: 130px; height: 130px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,185,50,.14) 0%, transparent 70%);
+  pointer-events: none;
 }
-.feature-card:hover{border-color:rgba(255,185,50,.4);transform:translateY(-3px);
-  box-shadow:0 12px 40px rgba(0,0,0,.4);}
-.feature-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  transform:scaleX(0);transition:transform .3s;transform-origin:left;
+.avg-num {
+  font-size: 92px; font-weight: 800; line-height: 1;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.feature-card:hover::before{transform:scaleX(1);}
-.feat-icon{font-size:28px;margin-bottom:14px;}
-.feat-title{font-size:15px;font-weight:700;margin-bottom:8px;}
-.feat-desc{font-size:13px;color:var(--dim);line-height:1.6;}
+.avg-stars { font-size: 22px; margin: 10px 0 6px; }
+.avg-label { font-size: 11.5px; color: var(--dim); font-weight: 500; letter-spacing: .4px; text-transform: uppercase; }
+.rating-bars { display: flex; flex-direction: column; gap: 8px; margin-top: 28px; width: 100%; }
+.rating-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+.rating-row .r-label { color: var(--dim); width: 22px; text-align: right; flex-shrink: 0; }
+.rbar-bg { flex: 1; height: 7px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.rbar-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 1.2s cubic-bezier(.25,.8,.25,1); }
+.rcount { width: 24px; text-align: right; color: var(--dim); font-size: 11px; }
+.write-review-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 22px; padding: 40px;
+  display: flex; flex-direction: column;
+}
+.write-review-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.write-review-card > p { font-size: 13px; color: var(--dim); line-height: 1.7; margin-bottom: 26px; }
+.star-row-label { font-size: 11px; font-weight: 700; color: var(--dim); letter-spacing: .8px; text-transform: uppercase; margin-bottom: 10px; }
+.star-select { display: flex; gap: 5px; margin-bottom: 22px; }
+.star-btn { background: none; border: none; cursor: pointer; font-size: 30px; line-height: 1; padding: 0; filter: grayscale(1) brightness(.3); transition: filter .12s, transform .12s; }
+.star-btn:hover { filter: grayscale(0) brightness(1); transform: scale(1.25); }
+.star-btn.active { filter: grayscale(0) brightness(1); transform: scale(1.08); }
+.review-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.review-field-single { margin-bottom: 12px; }
+.rating-input {
+  width: 100%; background: var(--bg2);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 11px 14px; color: var(--text);
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.rating-input:focus { outline: none; border-color: rgba(255,185,50,.45); box-shadow: 0 0 0 3px rgba(255,185,50,.07); }
+.rating-input::placeholder { color: var(--dim); }
+.rating-textarea {
+  width: 100%; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px 14px; color: var(--text);
+  font-family: 'Space Grotesk', sans-serif; font-size: 13px;
+  resize: vertical; min-height: 90px;
+  transition: border-color .2s, box-shadow .2s; margin-bottom: 18px;
+}
+.rating-textarea:focus { outline: none; border-color: rgba(255,185,50,.45); box-shadow: 0 0 0 3px rgba(255,185,50,.07); }
+.rating-textarea::placeholder { color: var(--dim); }
+.review-submit-row { display: flex; align-items: center; gap: 16px; }
+.btn-submit-rating {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #140E03; font-weight: 700; font-size: 14px;
+  padding: 12px 32px; border-radius: 11px; border: none; cursor: pointer;
+  transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.btn-submit-rating:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,185,50,.28); }
+.rating-thanks { display: none; font-size: 13px; font-weight: 700; color: var(--green); align-items: center; gap: 6px; }
+.rating-thanks.show { display: flex; }
+.reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.review-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+  transition: border-color .2s, transform .2s; position: relative;
+}
+.review-card:hover { border-color: rgba(255,185,50,.28); transform: translateY(-2px); }
+.review-card::before { content: '❝'; position: absolute; top: 14px; right: 18px; font-size: 32px; color: rgba(255,185,50,.1); font-family: Georgia, serif; line-height: 1; }
+.review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 11px; }
+.review-avatar {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; color: #140E03;
+}
+.review-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.review-stars { font-size: 11px; letter-spacing: 1px; }
+.review-text { font-size: 13px; color: var(--dim); line-height: 1.65; }
+.review-date { font-size: 11px; color: var(--border); margin-top: 10px; }
 
-.pricing-wrap{padding:80px 40px;}
-.pricing-cards{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  max-width:780px;
-  margin:48px auto 0;
+/* ── Support bar ───────────────────────────────────────────── */
+.support-bar {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; padding: 0;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
-.price-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:20px;padding:36px;position:relative;overflow:hidden;
-  transition:all .25s;
-  width:100%;
-  max-width:440px;
+.support-link {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 13px; font-weight: 600; color: var(--dim);
+  text-decoration: none; transition: all .2s;
+  padding: 18px 32px; border-right: 1px solid var(--border);
 }
-.price-card:hover{transform:translateY(-4px);box-shadow:0 16px 50px rgba(0,0,0,.4);}
-.price-card.featured{border-color:rgba(180,120,255,.5);
-  background:linear-gradient(160deg,var(--card) 0%,rgba(30,20,60,.6) 100%);}
-.price-badge{
-  position:absolute;top:16px;right:16px;
-  background:rgba(180,120,255,.2);color:var(--purple);
-  font-size:10px;font-weight:700;letter-spacing:.5px;
-  padding:3px 10px;border-radius:20px;text-transform:uppercase;
-}
-.price-top-bar{
-  position:absolute;top:0;left:0;right:0;height:4px;
-  border-radius:20px 20px 0 0;
-}
-.price-name{font-size:15px;font-weight:700;margin-bottom:6px;}
-.price-amount{font-size:42px;font-weight:700;line-height:1;margin-bottom:4px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-.price-amount-strikethrough{font-size:20px;color:var(--red);text-decoration:line-through;font-weight:600;opacity:0.8;}
-.price-note{font-size:11px;color:var(--dim);margin-bottom:24px;}
-.price-divider{height:1px;background:var(--border);margin-bottom:20px;}
-.price-feature{
-  display:flex;align-items:flex-start;gap:10px;
-  font-size:13px;margin-bottom:12px;line-height:1.5;
-}
-.price-feature .chk{
-  width:16px;height:16px;border-radius:4px;flex-shrink:0;margin-top:1px;
-  display:flex;align-items:center;justify-content:center;font-size:11px;
-}
-.chk.yes{background:rgba(50,200,120,.2);color:var(--green);}
-.chk.star{background:rgba(180,120,255,.2);color:var(--purple);}
+.support-link:last-child { border-right: none; }
+.support-link:hover { color: var(--accent); background: rgba(255,185,50,.04); }
 
-.price-cta{
-  display:block;text-align:center;margin-top:24px;
-  padding:12px;border-radius:10px;font-weight:700;font-size:14px;
-  text-decoration:none;cursor:pointer;border:none;width:100%;
-  transition:all .2s;
+/* ── Modal ─────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.72);
+  backdrop-filter: blur(10px);
+  z-index: 300;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .25s;
 }
-.price-cta.pro{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#140E03;}
-.price-cta.pro:hover{opacity:.9;transform:translateY(-1px);}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 22px; padding: 38px;
+  max-width: 480px; width: 90%;
+  transform: scale(.96); transition: transform .25s;
+}
+.modal-overlay.open .modal { transform: scale(1); }
+.modal h3 { font-size: 21px; font-weight: 700; margin-bottom: 6px; }
+.modal-sub { font-size: 13px; color: var(--dim); margin-bottom: 26px; }
+.modal-pkg {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px; margin-bottom: 12px; cursor: pointer;
+  transition: border-color .2s; display: flex; align-items: center; gap: 14px;
+}
+.modal-pkg.sel { border-color: var(--accent); }
+.modal-pkg.sel .mpk-dot { background: var(--accent); }
+.mpk-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; transition: .2s; }
+.mpk-name { font-weight: 700; font-size: 14px; }
+.mpk-price { font-size: 13px; color: var(--accent); margin-top: 3px; }
+.modal-divider { height: 1px; background: var(--border); margin: 22px 0; }
+.modal-wa {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: rgba(37,211,102,.1); border: 1px solid rgba(37,211,102,.28);
+  color: #25D366; border-radius: 12px; padding: 14px;
+  font-weight: 700; font-size: 14px; text-decoration: none;
+  transition: all .2s; cursor: pointer;
+}
+.modal-wa:hover { background: rgba(37,211,102,.18); }
+.modal-close {
+  position: absolute; top: 18px; right: 18px;
+  background: var(--card2); border: none; color: var(--dim);
+  width: 32px; height: 32px; border-radius: 8px; cursor: pointer; font-size: 16px;
+  transition: .2s;
+}
+.modal-close:hover { color: var(--text); }
 
-.payment-section{padding:80px 40px;max-width:1100px;margin:0 auto;}
-.pay-grid{
-  display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:16px;margin-top:40px;
-}
-.pay-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:0;overflow:hidden;
-  transition:all .25s;position:relative;
-}
-.pay-card:hover{transform:translateY(-4px);border-color:rgba(255,185,50,.35);
-  box-shadow:0 16px 48px rgba(0,0,0,.4);}
-.pay-card-top{
-  padding:22px 22px 16px;
-  border-bottom:1px solid var(--border);
-}
-.pay-card-logo{
-  display:flex;align-items:center;gap:10px;margin-bottom:14px;
-}
-.pay-bank-img{
-  width:42px;height:42px;border-radius:10px;object-fit:contain;
-  background:rgba(255,255,255,.06);padding:4px;
-  border:1px solid rgba(255,255,255,.08);
-}
-.pay-bank-fallback{
-  width:42px;height:42px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;border:1px solid var(--border);
-  flex-shrink:0;
-}
-.pay-type-badge{
-  font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;
-  padding:3px 9px;border-radius:20px;
-}
-.pay-name{font-size:16px;font-weight:700;margin-bottom:12px;}
-.pay-row{
-  display:flex;align-items:flex-start;gap:8px;
-  font-size:12px;color:var(--dim);margin-bottom:6px;line-height:1.5;
-}
-.pay-row-icon{flex-shrink:0;opacity:.5;font-size:11px;margin-top:1px;}
-.pay-card-bottom{padding:14px 22px;}
-.pay-action{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);
-  color:#25D366;font-size:12px;font-weight:700;
-  border-radius:10px;padding:10px;text-decoration:none;
-  transition:all .2s;cursor:pointer;
-}
-.pay-action:hover{background:rgba(37,211,102,.16);}
-.pay-action.amber{
-  background:rgba(255,185,50,.08);border-color:rgba(255,185,50,.25);
-  color:var(--accent);
-}
-.pay-action.amber:hover{background:rgba(255,185,50,.16);}
-.pay-featured-bar{
-  position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-}
-
-.pay-method-title { text-align: center; margin-top: 60px; margin-bottom: 30px; }
-.pay-method-title h3 { font-size: 22px; font-weight: 700; color: var(--text); display: inline-flex; align-items: center; gap: 12px; justify-content: center; }
-.pay-method-title h3 span { background: rgba(180,120,255,.15); color: var(--purple); font-size: 11px; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; }
-.pay-method-title p { color: var(--dim); font-size: 14px; margin-top: 8px; }
-
-.pay-qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 30px; margin-top: 10px; background: linear-gradient(145deg, var(--card) 0%, rgba(30,20,60,.4) 100%); border: 1px solid rgba(180,120,255,.3); border-radius: 24px; padding: 50px 30px; box-shadow: 0 16px 50px rgba(0,0,0,.3); position: relative; overflow: hidden; }
-.pay-qr-wrap::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 400px; background: radial-gradient(circle, rgba(180,120,255,.15) 0%, transparent 70%); pointer-events: none; }
-
-.qr-card { background: white; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.5); position: relative; z-index: 1; }
-.qr-card img { width: 180px; height: 180px; border-radius: 8px; object-fit: cover; }
-.qr-label { font-size: 14px; font-weight: 800; color: #111; text-align: center; }
-.qr-sub { font-size: 11px; color: #666; text-align: center; }
-
-.qr-steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; width: 100%; max-width: 900px; margin-top: 10px; position: relative; z-index: 1; }
-.qr-step-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 20px; text-align: center; transition: transform .2s; }
-.qr-step-box:hover { transform: translateY(-3px); border-color: rgba(255,185,50,.4); }
-.qr-step-box .pay-step-num { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #140E03; width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; margin: 0 auto 14px; }
-.qr-step-box .pay-step-text { font-size: 13px; color: var(--dim); line-height: 1.6; }
-.qr-step-box .pay-step-text strong { color: var(--text); }
-
-.ph h1 span, .avg-num { background-clip: text; -webkit-background-clip: text; }
-
-@media(max-width:800px){
-  .pay-grid{grid-template-columns:1fr;}
-  .pay-qr-wrap{grid-template-columns:1fr;}
-  .qr-card{margin:0 auto;}
-}
-
-.install-section{padding:80px 40px;max-width:1000px;margin:0 auto;}
-.install-steps{margin-top:40px;display:flex;flex-direction:column;gap:0;}
-.install-step{
-  display:flex;gap:24px;padding:28px 0;
-  border-bottom:1px solid var(--border);
-  position:relative;
-}
-.install-step:last-child{border-bottom:none;}
-.step-num{
-  width:40px;height:40px;flex-shrink:0;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border-radius:10px;display:flex;align-items:center;justify-content:center;
-  font-weight:800;font-size:16px;color:#140E03;
-}
-.step-body h4{font-size:15px;font-weight:700;margin-bottom:6px;}
-.step-body p{font-size:13px;color:var(--dim);line-height:1.7;}
-.step-body code{
-  display:inline-block;background:var(--card2);border:1px solid var(--border);
-  border-radius:6px;padding:2px 8px;font-family:Consolas,monospace;
-  font-size:12px;color:var(--accent);margin-top:8px;
+/* ── QR modal ──────────────────────────────────────────────── */
+.qr-modal-img-wrap {
+  background: white; padding: 20px; border-radius: 18px;
+  display: inline-block; margin-bottom: 20px;
+  border: 1px solid #eee;
 }
 
-.faq-section{padding:80px 40px;max-width:800px;margin:0 auto;}
-.faq-list{margin-top:40px;display:flex;flex-direction:column;gap:10px;}
-.faq-item{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:12px;overflow:hidden;cursor:pointer;
-  transition:border-color .2s;
+/* ── Bottom bar ────────────────────────────────────────────── */
+.bottom-bar {
+  border-top: 1px solid var(--border);
+  padding: 22px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+  background: var(--bg2);
 }
-.faq-item:hover{border-color:rgba(255,185,50,.3);}
-.faq-item.open{border-color:rgba(255,185,50,.4);}
-.faq-q{
-  padding:18px 20px;display:flex;align-items:center;justify-content:space-between;
-  font-size:14px;font-weight:600;user-select:none;
+.back-to-top {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--text); font-size: 13px; font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 9px 18px; border-radius: 10px;
+  cursor: pointer; transition: all .2s;
 }
-.faq-icon{
-  width:24px;height:24px;border-radius:6px;
-  background:rgba(255,185,50,.1);color:var(--accent);
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;transition:transform .25s;flex-shrink:0;
-}
-.faq-item.open .faq-icon{transform:rotate(45deg);}
-.faq-a{
-  max-height:0;overflow:hidden;transition:max-height .3s ease;
-  font-size:13px;color:var(--dim);line-height:1.7;
-}
-.faq-a-inner{padding:0 20px 18px;}
+.back-to-top:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.copyright { font-size: 12px; color: var(--dim); text-align: center; flex: 1; }
+.copyright strong { color: var(--text); }
 
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.7);
-  backdrop-filter:blur(8px);z-index:200;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;
-}
-.modal-overlay.open{opacity:1;pointer-events:all;}
-.modal{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:20px;padding:36px;max-width:480px;width:90%;
-  transform:scale(.95);transition:transform .25s;
-}
-.modal-overlay.open .modal{transform:scale(1);}
-.modal h3{font-size:20px;font-weight:700;margin-bottom:6px;}
-.modal-sub{font-size:13px;color:var(--dim);margin-bottom:24px;}
-.modal-pkg{
-  background:var(--bg2);border:1px solid var(--border);
-  border-radius:10px;padding:16px;margin-bottom:16px;cursor:pointer;
-  transition:border-color .2s;display:flex;align-items:center;gap:14px;
-}
-.modal-pkg.sel{border-color:var(--accent);}
-.modal-pkg.sel .mpk-dot{background:var(--accent);}
-.mpk-dot{
-  width:18px;height:18px;border-radius:50%;
-  border:2px solid var(--border);flex-shrink:0;transition:.2s;
-}
-.mpk-name{font-weight:700;font-size:14px;}
-.mpk-price{font-size:13px;color:var(--accent);}
-.modal-divider{height:1px;background:var(--border);margin:20px 0;}
-.modal-wa{
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);
-  color:#25D366;border-radius:12px;padding:14px;
-  font-weight:700;font-size:14px;text-decoration:none;
-  transition:all .2s;cursor:pointer;
-}
-.modal-wa:hover{background:rgba(37,211,102,.2);}
-.modal-close{
-  position:absolute;top:16px;right:16px;
-  background:var(--card2);border:none;color:var(--dim);
-  width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;
-  transition:.2s;
-}
-.modal-close:hover{color:var(--text);}
+/* ── Animations ────────────────────────────────────────────── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+.reveal { opacity: 0; transform: translateY(28px); transition: all .65s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-.cart-float{
-  position:fixed;bottom:28px;right:28px;z-index:50;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#140E03;width:56px;height:56px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:22px;
-  border:none;cursor:pointer;box-shadow:0 8px 30px rgba(255,185,50,.35);
-  transition:all .2s;
-}
-.cart-float:hover{transform:scale(1.1);}
-.cart-badge{
-  position:absolute;top:-4px;right:-4px;
-  background:var(--red);color:#fff;font-size:10px;font-weight:800;
-  width:18px;height:18px;border-radius:50%;display:flex;
-  align-items:center;justify-content:center;
-}
-
-.wa-float{
-  position:fixed;bottom:96px;right:28px;z-index:50;
-  background:#25D366;color:#fff;
-  width:52px;height:52px;border-radius:50%;border:none;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;box-shadow:0 8px 24px rgba(37,211,102,.35);
-  transition:all .2s;text-decoration:none;font-size:24px;
-}
-.wa-float:hover{transform:scale(1.1);}
-
-.bottom-bar{
-  border-top:1px solid var(--border);
-  margin-top:80px;
-  padding:20px 40px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:14px;
-  background:var(--bg2);
-}
-.back-to-top{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--card);
-  border:1px solid var(--border);
-  color:var(--text);
-  font-size:13px;font-weight:600;
-  font-family:'Space Grotesk',sans-serif;
-  padding:9px 18px;border-radius:10px;
-  cursor:pointer;transition:all .2s;
-}
-.back-to-top:hover{
-  border-color:var(--accent);
-  color:var(--accent);
-  transform:translateY(-2px);
-  box-shadow:0 6px 20px rgba(255,185,50,.15);
-}
-.back-to-top svg{transition:transform .2s;}
-.back-to-top:hover svg{transform:translateY(-2px);}
-.copyright{
-  font-size:12px;
-  color:var(--dim);
-  text-align:center;
-  flex:1;
-}
-.copyright strong{color:var(--text);}
-@media(max-width:600px){
-  .bottom-bar{justify-content:center;padding:16px 20px;}
-  .copyright{text-align:center;flex:0 0 100%;order:2;}
-  .back-to-top{order:1;}
-}
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(24px);}
-  to{opacity:1;transform:translateY(0);}
-}
-.reveal{opacity:0;transform:translateY(30px);transition:all .6s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-
-@media(max-width:700px){
-  nav{padding:0 20px;}
-  .nav-links{display:none;}
-  .mobile-menu-btn {display:block;}
-  
-  .pricing-cards {
-    flex-direction: column; 
-    align-items: center;
-    gap: 30px;
-  }
-  .price-card {
-    width: 100%;
-    max-width: 100%;
-    padding: 30px 20px;
-  }
-  .price-amount {
-    font-size: 36px;
-  }
-}
-
-.ratings-section{
-  padding:80px 40px;max-width:1100px;margin:0 auto;
-}
-.ratings-hero{
-  display:grid;grid-template-columns:320px 1fr;gap:32px;
-  margin-bottom:40px;
-}
-.ratings-score-card{
-  background:linear-gradient(145deg,var(--card) 0%,rgba(255,185,50,.06) 100%);
-  border:1px solid rgba(255,185,50,.25);
-  border-radius:24px;padding:40px 32px;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;position:relative;overflow:hidden;
-}
-.ratings-score-card::before{
-  content:'';position:absolute;top:-40px;right:-40px;
-  width:120px;height:120px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,185,50,.15) 0%,transparent 70%);
-  pointer-events:none;
-}
-.avg-num{
-  font-size:88px;
-  font-weight:800;
-  line-height:1;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  background-clip:text;              /* add this */
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.avg-stars{font-size:24px;margin:10px 0 6px;}
-.avg-label{font-size:12px;color:var(--dim);font-weight:500;letter-spacing:.5px;text-transform:uppercase;}
-.rating-bars{display:flex;flex-direction:column;gap:8px;margin-top:28px;width:100%;}
-.rating-row{display:flex;align-items:center;gap:10px;font-size:12px;}
-.rating-row .r-label{color:var(--dim);width:22px;text-align:right;flex-shrink:0;}
-.rbar-bg{flex:1;height:7px;background:var(--border);border-radius:4px;overflow:hidden;}
-.rbar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width 1.2s cubic-bezier(.25,.8,.25,1);}
-.rcount{width:24px;text-align:right;color:var(--dim);font-size:11px;}
-
-.write-review-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:24px;padding:40px;display:flex;flex-direction:column;
-  position:relative;overflow:hidden;
-}
-.write-review-card::after{
-  content:'';position:absolute;bottom:-30px;left:-30px;
-  width:100px;height:100px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,100,20,.08) 0%,transparent 70%);
-  pointer-events:none;
-}
-.write-review-card h3{font-size:20px;font-weight:700;margin-bottom:6px;}
-.write-review-card p{font-size:13px;color:var(--dim);line-height:1.7;margin-bottom:24px;}
-.star-row-label{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;}
-.star-select{display:flex;gap:6px;margin-bottom:20px;}
-.star-btn{
-  background:none;border:none;cursor:pointer;
-  font-size:30px;line-height:1;padding:0;
-  filter:grayscale(1) brightness(.35);
-  transition:filter .12s,transform .12s;
-}
-.star-btn:hover{filter:grayscale(0) brightness(1);transform:scale(1.25);}
-.star-btn.active{filter:grayscale(0) brightness(1);transform:scale(1.05);}
-.review-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
-.review-field-single{margin-bottom:12px;}
-.rating-input{
-  width:100%;background:var(--bg2);
-  border:1px solid var(--border);border-radius:10px;
-  padding:11px 14px;color:var(--text);
-  font-family:'Space Grotesk',sans-serif;font-size:13px;
-  transition:border-color .2s,box-shadow .2s;
-}
-.rating-input:focus{outline:none;border-color:rgba(255,185,50,.5);box-shadow:0 0 0 3px rgba(255,185,50,.08);}
-.rating-input::placeholder{color:var(--dim);}
-.rating-textarea{
-  width:100%;background:var(--bg2);border:1px solid var(--border);
-  border-radius:10px;padding:12px 14px;color:var(--text);
-  font-family:'Space Grotesk',sans-serif;font-size:13px;
-  resize:vertical;min-height:90px;transition:border-color .2s,box-shadow .2s;
-  margin-bottom:16px;
-}
-.rating-textarea:focus{outline:none;border-color:rgba(255,185,50,.5);box-shadow:0 0 0 3px rgba(255,185,50,.08);}
-.rating-textarea::placeholder{color:var(--dim);}
-.review-submit-row{display:flex;align-items:center;gap:16px;}
-.btn-submit-rating{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#140E03;font-weight:700;font-size:14px;
-  padding:12px 32px;border-radius:11px;border:none;cursor:pointer;
-  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
-}
-.btn-submit-rating:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,185,50,.28);}
-.rating-thanks{
-  display:none;font-size:13px;font-weight:700;
-  color:var(--green);display:none;align-items:center;gap:6px;
-}
-.rating-thanks.show{display:flex;}
-
-.reviews-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:16px;margin-top:0;
-}
-.review-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:22px;
-  transition:border-color .2s,transform .2s;
-  position:relative;
-}
-.review-card:hover{border-color:rgba(255,185,50,.3);transform:translateY(-2px);}
-.review-card::before{
-  content:'❝';position:absolute;top:14px;right:18px;
-  font-size:32px;color:rgba(255,185,50,.12);font-family:Georgia,serif;line-height:1;
-}
-.review-header{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
-.review-avatar{
-  width:40px;height:40px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:flex;align-items:center;justify-content:center;
-  font-weight:800;font-size:15px;color:#140E03;
-}
-.review-name{font-size:14px;font-weight:700;margin-bottom:2px;}
-.review-stars{font-size:11px;letter-spacing:1px;}
-.review-text{font-size:13px;color:var(--dim);line-height:1.65;}
-.review-date{font-size:11px;color:var(--border);margin-top:10px;}
-
-.support-bar{
-  display:flex;align-items:center;justify-content:center;
-  gap:0;flex-wrap:wrap;
-  padding:0;
-  background:linear-gradient(90deg,var(--bg2) 0%,var(--card) 50%,var(--bg2) 100%);
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-}
-.support-link{
-  display:inline-flex;align-items:center;gap:9px;
-  font-size:13px;font-weight:600;color:var(--dim);
-  text-decoration:none;transition:all .2s;
-  padding:18px 32px;border-right:1px solid var(--border);
-}
-.support-link:last-child{border-right:none;}
-.support-link:hover{color:var(--accent);background:rgba(255,185,50,.05);}
-.support-link svg{flex-shrink:0;opacity:.7;transition:opacity .2s;}
-.support-link:hover svg{opacity:1;}
-@media(max-width:800px){
-  .ratings-hero{grid-template-columns:1fr;}
-  .review-fields{grid-template-columns:1fr;}
-  .reviews-grid{grid-template-columns:1fr;}
-  .support-link{border-right:none;border-bottom:1px solid var(--border);width:100%;justify-content:center;}
-  .support-link:last-child{border-bottom:none;}
-}
+/* ── Font-face ─────────────────────────────────────────────── */
 @font-face {
   font-family: 'FMAbhayaWeb';
-  src: url('FMAbhaya.woff2') format('woff2'),
-       url('FMAbhaya.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+  src: url('FMAbhaya.woff2') format('woff2'), url('FMAbhaya.ttf') format('truetype');
+  font-weight: normal; font-style: normal; font-display: swap;
 }
 
-.pay-tabs-container { display: flex; justify-content: center; margin: 30px 0 40px; }
-.pay-tabs { display: inline-flex; background: var(--bg2); border: 1px solid var(--border); border-radius: 50px; padding: 6px; position: relative; box-shadow: inset 0 2px 6px rgba(0,0,0,0.2); }
-.pay-tab { background: transparent; border: none; border-radius: 40px; padding: 12px 32px; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: var(--dim); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; position: relative; z-index: 2; }
-.pay-tab.active { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #140E03; box-shadow: 0 4px 15px rgba(255,185,50,.3); }
-.pay-tab:not(.active):hover { color: var(--text); }
-
-.pay-view { display: none; animation: fadeView 0.4s ease; }
-.pay-view.active { display: block; }
-@keyframes fadeView { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-.pay-qr-modern { background: var(--card); border: 1px solid var(--border); border-radius: 24px; display: flex; align-items: stretch; max-width: 880px; margin: 0 auto; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-.qr-left { padding: 40px; background: linear-gradient(145deg, var(--card2) 0%, rgba(30,20,60,.3) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--border); width: 45%; position: relative; }
-.qr-img-box { background: white; padding: 16px; border-radius: 18px; margin-bottom: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
-.qr-img-box img { width: 170px; height: 170px; display: block; border-radius: 8px; object-fit: cover; }
-.qr-left h4 { font-size: 16px; color: var(--text); margin-bottom: 6px; font-weight: 800; }
-.qr-left p { font-size: 12px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; font-weight: 600;}
-
-.qr-right { padding: 40px; width: 55%; text-align: left; display: flex; flex-direction: column; justify-content: center; }
-.qr-right h3 { font-size: 18px; margin-bottom: 24px; color: var(--text); display: flex; align-items: center; gap: 10px; }
-.qr-timeline { list-style: none; padding: 0; margin: 0 0 32px 0; }
-.qr-timeline li { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; font-size: 13.5px; color: var(--dim); line-height: 1.6; }
-.qr-timeline li:last-child { margin-bottom: 0; }
-.qr-timeline li .step-circle { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,185,50,.15); color: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
-.qr-timeline li strong { color: var(--text); }
-.qr-wa-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: rgba(37,211,102,.1); border: 1px solid rgba(37,211,102,.3); color: #25D366; font-weight: 700; font-size: 14px; padding: 14px 28px; border-radius: 12px; text-decoration: none; transition: all 0.2s; width: fit-content; }
-.qr-wa-btn:hover { background: rgba(37,211,102,.2); transform: translateY(-2px); }
-
-@media(max-width: 768px) {
-  .pay-qr-modern { flex-direction: column; max-width: 400px; }
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ratings-hero { grid-template-columns: 1fr; }
+  .review-fields { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .pay-qr-modern { flex-direction: column; max-width: 420px; }
   .qr-left, .qr-right { width: 100%; border-right: none; }
-  .qr-left { border-bottom: 1px solid var(--border); padding: 40px 20px; }
-  .qr-right { padding: 30px 20px; }
+  .qr-left { border-bottom: 1px solid var(--border); padding: 36px 24px; }
+  .qr-right { padding: 32px 24px; }
   .qr-wa-btn { width: 100%; }
 }
-@keyframes fadeView { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
+@media (max-width: 700px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .mobile-menu-btn { display: block; }
+  .hero { padding: 60px 24px 40px; }
+  .hero-stats { gap: 20px; }
+  .hero-stat-sep { display: none; }
+  .screenshots { padding: 0 20px 60px; }
+  .section { padding: 64px 24px; }
+  .pricing-wrap { padding: 64px 24px; }
+  .pricing-cards { flex-direction: column; align-items: center; }
+  .price-card { max-width: 100%; }
+  .payment-section { padding: 64px 24px; }
+  .install-section { padding: 64px 24px; }
+  .faq-section { padding: 64px 24px; }
+  .ratings-section { padding: 64px 24px; }
+  .bottom-bar { padding: 18px 20px; justify-content: center; }
+  .copyright { text-align: center; flex: 0 0 100%; order: 2; }
+  .back-to-top { order: 1; }
+  .support-link { border-right: none; border-bottom: 1px solid var(--border); width: 100%; justify-content: center; }
+  .support-link:last-child { border-bottom: none; }
+  .pay-tabs .pay-tab { padding: 10px 18px; font-size: 12px; }
+}
 </style>
 </head>
 <body>
 
+<!-- ── Alert banner ─────────────────────────────────────── -->
+<div class="alert-banner" id="alertBanner">
+  <span class="tag">⚠️ Install Note</span>
+  <span class="sinhala-note">මෙය වයිරසයක් නොවේ!</span>
+  <span>Chrome / SmartScreen may flag the installer — click <strong>"Keep"</strong> or <strong>"Run anyway"</strong> to proceed. The software is 100% safe.</span>
+  <button class="alert-close" onclick="document.getElementById('alertBanner').style.display='none'">✕</button>
+</div>
+
+<!-- ── Nav ──────────────────────────────────────────────── -->
 <nav>
-  <div class="nav-logo">
-    <img src="logo.webp" alt="ADIA QBoard" id="navLogo" onerror="this.src='logo.png'">
+  <a class="nav-logo" href="#">
+    <img src="logo.webp" alt="ADIA QBoard" onerror="this.src='logo.png'">
     <span>ADIA QBoard</span>
-  </div>
+  </a>
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="sinhala-unicode-converter.html">Converter</a>
@@ -843,109 +943,129 @@ nav{
     <a href="#install">Install</a>
     <a href="#faq">FAQ</a>
     <a href="#ratings">⭐ Reviews</a>
-    <a href="#" class="nav-cta" onclick="openCart()">🛒 Get It</a>
+    <a href="#" class="nav-cta" onclick="openCart(); return false;">🛒 Get It</a>
   </div>
-  <button class="mobile-menu-btn" onclick="toggleMobileNav()">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+  <button class="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Open menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
   </button>
 </nav>
 
+<!-- ── Mobile nav ────────────────────────────────────────── -->
 <div class="mobile-nav-overlay" id="mobileNav">
   <button class="mobile-nav-close" onclick="toggleMobileNav()">✕</button>
   <div class="mobile-nav-links">
-    <a href="#features" onclick="toggleMobileNav()">Features</a>
+    <a href="#features"  onclick="toggleMobileNav()">Features</a>
     <a href="sinhala-unicode-converter.html" onclick="toggleMobileNav()">Converter</a>
-    <a href="#pricing" onclick="toggleMobileNav()">Pricing</a>
-    <a href="#payment" onclick="toggleMobileNav()">How to Pay</a>
-    <a href="#install" onclick="toggleMobileNav()">Install</a>
-    <a href="#faq" onclick="toggleMobileNav()">FAQ</a>
-    <a href="#ratings" onclick="toggleMobileNav()">⭐ Reviews</a>
-    <a href="#" class="nav-cta" style="margin-top:10px;display:inline-block;" onclick="toggleMobileNav(); openCart()">🛒 Get It</a>
+    <a href="#pricing"   onclick="toggleMobileNav()">Pricing</a>
+    <a href="#payment"   onclick="toggleMobileNav()">How to Pay</a>
+    <a href="#install"   onclick="toggleMobileNav()">Install</a>
+    <a href="#faq"       onclick="toggleMobileNav()">FAQ</a>
+    <a href="#ratings"   onclick="toggleMobileNav()">⭐ Reviews</a>
+    <a href="#" style="color:var(--accent);" onclick="toggleMobileNav(); openCart(); return false;">🛒 Get It</a>
   </div>
 </div>
 
+
 <section class="hero">
   <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
   <div class="hero-grid"></div>
-  <div style="position:relative;z-index:1;width:100%;">
-    
-    <h1>Type Sinhala,<br><span>Effortlessly.</span></h1>
-    <p class="hero-sub">ADIA QBoard is a modern, lightweight typing software designed to seamlessly convert Singlish into precise Sinhala Unicode and Sinhala Legacy fonts. Built to empower Sri Lankan professionals and creators to write faster and better. </p>
-    
+
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Now Available for Windows 10 &amp; 11
+    </div>
+
+    <h1>
+      Type Sinhala<br>
+      <span class="grad">Effortlessly</span> on Windows
+    </h1>
+
+    <p class="hero-sinhala">ඕනෑම Windows app එකේ Singlish ටයිප් කරන්න — Sinhala Unicode ලැබේ.</p>
+
+    <p class="hero-sub">
+      ADIA QBoard turns your everyday English keyboard into a full Sinhala typing engine — works in Photoshop, Word, Chrome, and anywhere else on Windows.
+    </p>
+
     <div class="hero-btns">
-      <a href="sinhala-unicode-converter.html" class="btn-outline">🔄 Open Font Converter</a>
-      <a href="#" onclick="window.location.href='https://github.com/adiaqboard/adiaqboard.github.io/releases/download/v1.0.0/ADIA.QBoard.Setup.zip'; return false;" class="btn-primary">⬇ Download Free Trial</a>
-      <a href="#pricing" class="btn-outline">💰 View Pricing</a>
-      
+      <a href="#" onclick="window.location.href='https://github.com/adiaqboard/adiaqboard.github.io/releases/download/v1.0.0/ADIA.QBoard.Setup.zip'; return false;" class="btn-primary">
+        ⬇ Free 7-Day Trial
+      </a>
+      <a href="#features" class="btn-outline">
+        Explore Features
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">1,800+</div>
+        <div class="hero-stat-label">Sinhala Mappings</div>
+      </div>
+      <div class="hero-stat-sep"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3 Days</div>
+        <div class="hero-stat-label">Free Trial</div>
+      </div>
+      <div class="hero-stat-sep"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Offline & Secure</div>
+      </div>
+      <div class="hero-stat-sep"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">v1.4.1</div>
+        <div class="hero-stat-label">Latest Version</div>
+      </div>
     </div>
   </div>
 </section>
+
 
 <section class="screenshots" id="screenshots">
   <div class="slider-container">
     <div class="slider-track" id="sliderTrack">
-      
-      <div class="slide">
-        <img src="Converter paste.gif" alt="Converter">
-      </div>
-
-      <div class="slide">
-        <img src="typing.gif" alt="Typing">
-      </div>
-      
-      <div class="slide">
-        <img src="Guide.png" alt="Guide Tab">
-      </div>
-
-      <div class="slide">
-        <img src="converter.png" alt="Converter Tab">
-      </div>
-      
-      <div class="slide">
-        <img src="todo.png" alt="To-Do Tab">
-      </div>
-
-      <div class="slide">
-        <img src="voice.png" alt="To-Do Tab">
-      </div>
-
-         <div class="slide">
-        <img src="widget.png" alt="To-Do Tab">
-      </div>
-
-      </div>
-    
+      <div class="slide"><img src="Converter paste.gif" alt="Converter"></div>
+      <div class="slide"><img src="typing.gif" alt="Typing"></div>
+      <div class="slide"><img src="Guide.png" alt="Guide Tab"></div>
+      <div class="slide"><img src="converter.png" alt="Converter Tab"></div>
+      <div class="slide"><img src="todo.png" alt="To-Do Tab"></div>
+      <div class="slide"><img src="voice.png" alt="Voice Typing"></div>
+      <div class="slide"><img src="widget.png" alt="Widget"></div>
+    </div>
     <button class="slider-btn prev" onclick="moveSlide(-1)">❮</button>
     <button class="slider-btn next" onclick="moveSlide(1)">❯</button>
-    
     <div class="slider-dots" id="sliderDots"></div>
   </div>
 </section>
 
+
 <section class="section reveal" id="features">
   <div class="section-tag">Features</div>
   <h2>Everything you need to<br>type in Sinhala</h2>
-  <p class="section-sub">Designed for students, professionals and content creators who need seamless Sinhala typing on Windows.</p>
+  <p class="section-sub">Designed for students, professionals, and content creators who need seamless Sinhala typing on Windows.</p>
   <div class="features-grid">
     <div class="feature-card reveal">
       <div class="feat-icon">⌨️</div>
       <div class="feat-title">Singlish to Sinhala</div>
-      <div class="feat-desc">Type phonetically in English (Singlish) and get instant Sinhala Unicode output — works in any app.</div>
+      <div class="feat-desc">Type phonetically in English (Singlish) and get instant Sinhala Unicode output — works in any app, any window.</div>
     </div>
     <div class="feature-card reveal">
       <div class="feat-icon">🔄</div>
       <div class="feat-title">FM Legacy Converter</div>
-      <div class="feat-desc">Convert Unicode Sinhala to FM Family , Apex Family, DL Family and any types of other Sinhala legacy fonts. Mixed English + Sinhala supported.</div>
+      <div class="feat-desc">Convert Unicode Sinhala to FM Family, Apex Family, DL Family and other legacy fonts. Mixed English + Sinhala supported.</div>
     </div>
     <div class="feature-card reveal">
       <div class="feat-icon">🎙️</div>
       <div class="feat-title">Background Voice Typing</div>
-      <div class="feat-desc">Speak and watch it type automatically in any app. Supports both English and Sinhala. Runs seamlessly in the background (internet connection required). </div>
+      <div class="feat-desc">Speak and watch it type in any app automatically. Supports both English and Sinhala, runs seamlessly in the background.</div>
     </div>
     <div class="feature-card reveal">
       <div class="feat-icon">✅</div>
       <div class="feat-title">To-Do + Countdown</div>
-      <div class="feat-desc">Daily task manager with analog clock, goal countdown timers, desktop widget and reminders.</div>
+      <div class="feat-desc">Daily task manager with analog clock, goal countdown timers, a floating desktop widget, and smart reminders.</div>
     </div>
     <div class="feature-card reveal">
       <div class="feat-icon">🔒</div>
@@ -955,30 +1075,30 @@ nav{
     <div class="feature-card reveal">
       <div class="feat-icon">🖨️</div>
       <div class="feat-title">Works Everywhere</div>
-      <div class="feat-desc">Photoshop, MS Word, Notepad, CapCut, Premiere Pro and any other Windows app. Global keyboard hook — it just works.</div>
+      <div class="feat-desc">Photoshop, MS Word, Notepad, CapCut, Premiere Pro — a global keyboard hook means it just works, everywhere.</div>
     </div>
   </div>
 </section>
 
+
 <section class="pricing-wrap reveal" id="pricing">
   <div style="text-align:center;">
     <div class="section-tag">Pricing</div>
-    <h2>Choose your plan.</h2>
-    <p style="color:var(--dim);font-size:15px;margin-top:10px;">Limited time offers. Choose the best option for you.</p>
+    <h2>Choose your plan</h2>
+    <p style="color:var(--dim);font-size:15px;margin-top:10px;">Limited time offers. No hidden fees.</p>
   </div>
   <div class="pricing-cards">
-
     <div class="price-card">
       <div class="price-top-bar" style="background:linear-gradient(90deg,var(--red),#FF8080);"></div>
-      <div class="price-badge" style="background:rgba(255,80,80,.15);color:var(--red);">Limited Time Offer</div>
-      <div class="price-name" style="color:var(--text);">Yearly License</div>
+      <div class="price-badge" style="background:rgba(255,80,80,.14);color:var(--red);">Limited Offer</div>
+      <div class="price-name">Yearly License</div>
       <div class="price-amount">
         <span class="price-amount-strikethrough">LKR 999</span>
-        <span style="color:var(--text);">LKR 499</span>
+        <span>LKR 499</span>
       </div>
       <div class="price-note">Per year · Cancel anytime</div>
       <div class="price-divider"></div>
-      <div class="price-feature"><span class="chk yes">✓</span>Fast Unicode & FM Legacy Typing</div>
+      <div class="price-feature"><span class="chk yes">✓</span>Fast Unicode &amp; FM Legacy Typing</div>
       <div class="price-feature"><span class="chk yes">✓</span>Background Voice Typing</div>
       <div class="price-feature"><span class="chk yes">✓</span>Smart Unicode ↔ FM Converter</div>
       <div class="price-feature"><span class="chk yes">✓</span>Desktop To-Do Widget</div>
@@ -986,48 +1106,48 @@ nav{
       <div class="price-feature"><span class="chk yes">✓</span>Standard Support</div>
       <button class="price-cta" style="background:var(--card2);color:var(--text);border:1px solid var(--border);" onclick="openCart('yearly')">Get Yearly — LKR 499</button>
     </div>
-
     <div class="price-card featured">
       <div class="price-top-bar" style="background:linear-gradient(90deg,var(--purple),#6A4FFF);"></div>
       <div class="price-badge">Best Value</div>
       <div class="price-name" style="color:var(--purple);">Lifetime License</div>
       <div class="price-amount">
         <span class="price-amount-strikethrough">LKR 3,999</span>
-        <span style="color:var(--text);">LKR 1,999</span>
+        <span>LKR 1,999</span>
       </div>
       <div class="price-note">One-time payment · No renewal fees</div>
       <div class="price-divider"></div>
-      <div class="price-feature"><span class="chk yes">✓</span>Fast Unicode & FM Legacy Typing</div>
-      <div class="price-feature"><span class="chk yes">✓</span>Sinhala & Eng Background Voice Typing</div>
+      <div class="price-feature"><span class="chk yes">✓</span>Fast Unicode &amp; FM Legacy Typing</div>
+      <div class="price-feature"><span class="chk yes">✓</span>Sinhala &amp; English Voice Typing</div>
       <div class="price-feature"><span class="chk yes">✓</span>Smart Unicode ↔ FM Converter</div>
       <div class="price-feature"><span class="chk yes">✓</span>Desktop To-Do List Widget</div>
       <div class="price-feature"><span class="chk yes">✓</span>Lifetime Free Updates</div>
       <div class="price-feature"><span class="chk yes">✓</span>Premium VIP Support</div>
       <button class="price-cta pro" onclick="openCart('lifetime')">Get Lifetime — LKR 1,999</button>
     </div>
-
   </div>
 </section>
 
+
 <section class="payment-section reveal" id="payment">
-  <div style="text-align: center;">
+  <div style="text-align:center;">
     <div class="section-tag">Payment</div>
     <h2>Choose your payment method</h2>
-    <p class="section-sub" style="margin:10px auto 0;">Instant activation. Choose the most convenient way to complete your purchase.</p>
+    <p class="section-sub" style="margin:12px auto 0;">Instant activation after payment. Pick the most convenient option.</p>
   </div>
 
   <div class="pay-tabs-container">
     <div class="pay-tabs">
       <button class="pay-tab active" id="tab-qr" onclick="showPayMethod('qr')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
-        QR Scan (Fastest)
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/></svg>
+        QR Scan <span style="font-size:11px;opacity:.7;font-weight:500;">(Fastest)</span>
       </button>
       <button class="pay-tab" id="tab-bank" onclick="showPayMethod('bank')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
         Bank Transfer
       </button>
     </div>
   </div>
+
 
   <div id="view-qr" class="pay-view active">
     <div class="pay-qr-modern">
@@ -1038,30 +1158,30 @@ nav{
         <h4>ADIA QBoard</h4>
         <p>LankaQR Supported</p>
       </div>
-
       <div class="qr-right">
         <h3>Quick Activation Guide</h3>
         <ul class="qr-timeline">
           <li>
             <div class="step-circle">1</div>
-            <div>Scan the QR code and transfer the exact amount for your selected package.</div>
+            <div>Scan the QR code and transfer the exact amount for your selected plan.</div>
           </li>
           <li>
             <div class="step-circle">2</div>
-            <div>Copy the <strong>Hardware ID (HWID)</strong> from the ADIA QBoard activation screen.</div>
+            <div>Copy the <strong>Hardware ID (HWID)</strong> shown on the ADIA QBoard activation screen.</div>
           </li>
           <li>
             <div class="step-circle">3</div>
-            <div>Send the <strong>Payment Receipt</strong> and your <strong>HWID</strong> to our WhatsApp.</div>
+            <div>Send the <strong>Payment Receipt</strong> + your <strong>HWID</strong> to our WhatsApp. You'll receive an activation key within minutes.</div>
           </li>
         </ul>
         <a href="https://wa.me/94741704804?text=Hi%2C+I+just+paid+for+ADIA+QBoard+via+QR+Scan.+Here+is+my+receipt." target="_blank" class="qr-wa-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Send Receipt to WhatsApp
         </a>
       </div>
     </div>
   </div>
+
 
   <div id="view-bank" class="pay-view">
     <div class="pay-grid">
@@ -1069,18 +1189,18 @@ nav{
         <div class="pay-card-top">
           <div class="pay-card-logo">
             <img src="Cmb.png" alt="Commercial Bank" class="pay-bank-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="pay-bank-fallback" style="display:none;background:rgba(220,50,40,.1);">🏦</div>
-            <div><span class="pay-type-badge" style="background:rgba(50,130,255,.12);color:#6AABFF;">Bank Transfer</span></div>
+            <div class="pay-bank-fallback" style="display:none;">🏦</div>
+            <span class="pay-type-badge" style="background:rgba(50,130,255,.12);color:#6AABFF;">Bank Transfer</span>
           </div>
           <div class="pay-name">Commercial Bank</div>
-          <div class="pay-row"><span class="pay-row-icon">🔢</span><span><strong style="color:var(--text)">8265000975</strong></span></div>
+          <div class="pay-row"><span class="pay-row-icon">🔢</span><strong style="color:var(--text)">8265000975</strong></div>
           <div class="pay-row"><span class="pay-row-icon">👤</span><span>R.M.T.A.B Ranasinghe</span></div>
           <div class="pay-row"><span class="pay-row-icon">📍</span><span>Gelioya Branch</span></div>
         </div>
         <div class="pay-card-bottom">
           <a href="https://wa.me/94741704804?text=Hi%2C+I+made+a+bank+transfer+to+Commercial+Bank+for+ADIA+QBoard." target="_blank" class="pay-action">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Send Receipt via WA
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Send Receipt via WhatsApp
           </a>
         </div>
       </div>
@@ -1089,18 +1209,18 @@ nav{
         <div class="pay-card-top">
           <div class="pay-card-logo">
             <img src="boc.png" alt="Bank of Ceylon" class="pay-bank-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="pay-bank-fallback" style="display:none;background:rgba(220,160,20,.1);">🏛️</div>
-            <div><span class="pay-type-badge" style="background:rgba(50,130,255,.12);color:#6AABFF;">Bank Transfer</span></div>
+            <div class="pay-bank-fallback" style="display:none;">🏛️</div>
+            <span class="pay-type-badge" style="background:rgba(50,130,255,.12);color:#6AABFF;">Bank Transfer</span>
           </div>
           <div class="pay-name">Bank of Ceylon (BOC)</div>
-          <div class="pay-row"><span class="pay-row-icon">🔢</span><span><strong style="color:var(--text)">8241992</strong></span></div>
+          <div class="pay-row"><span class="pay-row-icon">🔢</span><strong style="color:var(--text)">8241992</strong></div>
           <div class="pay-row"><span class="pay-row-icon">👤</span><span>R.M.T.A.B Ranasinghe</span></div>
           <div class="pay-row"><span class="pay-row-icon">📍</span><span>Gelioya Branch</span></div>
         </div>
         <div class="pay-card-bottom">
           <a href="https://wa.me/94741704804?text=Hi%2C+I+made+a+bank+transfer+to+Bank+of+Ceylon+for+ADIA+QBoard." target="_blank" class="pay-action">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Send Receipt via WA
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Send Receipt via WhatsApp
           </a>
         </div>
       </div>
@@ -1109,17 +1229,17 @@ nav{
         <div class="pay-card-top">
           <div class="pay-card-logo">
             <img src="dialog.png" alt="Dialog Finance" class="pay-bank-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="pay-bank-fallback" style="display:none;background:rgba(0,160,220,.1);">🏦</div>
-            <div><span class="pay-type-badge" style="background:rgba(50,130,255,.12);color:#6AABFF;">Bank Transfer</span></div>
+            <div class="pay-bank-fallback" style="display:none;">🏦</div>
+            <span class="pay-type-badge" style="background:rgba(50,130,255,.12);color:#6AABFF;">Bank Transfer</span>
           </div>
           <div class="pay-name">Dialog Finance PLC</div>
-          <div class="pay-row"><span class="pay-row-icon">🔢</span><span><strong style="color:var(--text)">0010 2040 2962</strong></span></div>
+          <div class="pay-row"><span class="pay-row-icon">🔢</span><strong style="color:var(--text)">0010 2040 2962</strong></div>
           <div class="pay-row"><span class="pay-row-icon">👤</span><span>R.M.T.A.B Ranasinghe</span></div>
           <div class="pay-row"><span class="pay-row-icon">📍</span><span>Head Office Branch</span></div>
         </div>
         <div class="pay-card-bottom">
           <a href="https://wa.me/94741704804?text=Hi%2C+I+made+a+bank+transfer+to+Dialog+Finance+PLC+for+ADIA+QBoard." target="_blank" class="pay-action">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Contact via WhatsApp
           </a>
         </div>
@@ -1127,6 +1247,7 @@ nav{
     </div>
   </div>
 </section>
+
 
 <section class="install-section reveal" id="install">
   <div class="section-tag">Installation</div>
@@ -1136,40 +1257,41 @@ nav{
       <div class="step-num">1</div>
       <div class="step-body">
         <h4>Download ADIA QBoard</h4>
-        <p>Click the download button and save the installer to your PC. The file is approximately 15–30 MB.</p>
-        <a href="#" onclick="window.location.href='https://github.com/adiaqboard/adiaqboard.github.io/releases/download/v1.0.0/ADIA.QBoard.Setup.zip'; return false;" class="btn-primary" style="margin-top:12px;font-size:13px;padding:10px 20px;">⬇ Download Now</a>
+        <p>Click the button below and save the installer to your PC. The file is approximately 15–30 MB.</p>
+        <a href="https://github.com/adiaqboard/adiaqboard.github.io/releases/download/v1.0.0/ADIA.QBoard.Setup.zip" class="btn-primary" style="margin-top:14px;font-size:13px;padding:10px 22px;">⬇ Download Now</a>
       </div>
     </div>
     <div class="install-step">
       <div class="step-num">2</div>
       <div class="step-body">
         <h4>Run the Installer</h4>
-        <p>Double-click <code>ADIA_QBoard_Setup.exe</code> and follow the on-screen instructions. Windows may show a SmartScreen warning — click "More info" → "Run anyway".</p>
+        <p>Double-click <code>ADIA_QBoard_Setup.exe</code> and follow the on-screen instructions. If Windows SmartScreen appears, click <strong style="color:var(--text)">"More info"</strong> → <strong style="color:var(--text)">"Run anyway"</strong>.</p>
       </div>
     </div>
     <div class="install-step">
       <div class="step-num">3</div>
       <div class="step-body">
         <h4>Start the 7-Day Free Trial</h4>
-        <p>Choose your package at the welcome screen. The trial begins immediately — no payment required to try.</p>
+        <p>Choose your package at the welcome screen. The full-featured Pro trial begins immediately — no payment required.</p>
       </div>
     </div>
     <div class="install-step">
       <div class="step-num">4</div>
       <div class="step-body">
-        <h4>Activate (after purchase)</h4>
-        <p>Copy your Hardware ID (HWID) from the Activation screen. Send it to WhatsApp with your payment proof. Enter the key you receive to unlock lifetime access.</p>
+        <h4>Activate After Purchase</h4>
+        <p>Copy your <strong style="color:var(--text)">Hardware ID (HWID)</strong> from the Activation screen, then send it to WhatsApp with your payment proof. You'll receive your key within minutes.</p>
       </div>
     </div>
     <div class="install-step">
       <div class="step-num">5</div>
       <div class="step-body">
         <h4>Start Typing in Sinhala!</h4>
-        <p>ADIA QBoard runs in the system tray. Open any app and start typing in Singlish — it converts automatically. Press the tray icon to access the dashboard.</p>
+        <p>ADIA QBoard runs in the system tray. Open any app and start typing in Singlish — it converts automatically. Click the tray icon to access the full dashboard.</p>
       </div>
     </div>
   </div>
 </section>
+
 
 <section class="faq-section reveal" id="faq">
   <div style="text-align:center;">
@@ -1179,28 +1301,29 @@ nav{
   <div class="faq-list" id="faqList"></div>
 </section>
 
+
 <div class="support-bar">
   <a class="support-link" href="mailto:info@adiaqboard.me">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
     info@adiaqboard.me
   </a>
   <a class="support-link" href="https://forms.gle/UReooqU1szryLShv8" target="_blank">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
     Report a Bug / Missing Letter
   </a>
   <a class="support-link" href="https://wa.me/94741704804" target="_blank">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     WhatsApp Support
   </a>
-<a class="support-link" href="https://whatsapp.com/channel/0029Vb7pas0EgGfDKwh4Q10p" target="_blank">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <a class="support-link" href="https://whatsapp.com/channel/0029Vb7pas0EgGfDKwh4Q10p" target="_blank">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     Join Our WhatsApp Channel
   </a>
-
 </div>
 
+
 <section class="ratings-section reveal" id="ratings">
-  <div style="text-align:center;margin-bottom:48px;">
+  <div style="text-align:center;margin-bottom:52px;">
     <div class="section-tag">Reviews</div>
     <h2>What users say</h2>
     <p style="color:var(--dim);font-size:15px;margin-top:10px;">Real feedback from ADIA QBoard users across Sri Lanka.</p>
@@ -1238,108 +1361,104 @@ nav{
       </div>
       <div class="review-submit-row">
         <button class="btn-submit-rating" onclick="submitRating()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
           Submit Review
         </button>
         <div class="rating-thanks" id="ratingThanks">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           Thank you!
         </div>
       </div>
     </div>
   </div>
-  <div class="reviews-grid" id="reviewsList">
-  </div>
+  <div class="reviews-grid" id="reviewsList"></div>
 </section>
 
+
 <div class="bottom-bar">
-  <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
     Back to Top
   </button>
   <div class="copyright">
-    © 2026 ADIA QBoard · All Rights Reserved · <a href="mailto:info@adiaqboard.me" style="color:var(--accent);text-decoration:none;">info@adiaqboard.me</a>
+    © 2026 <strong>ADIA QBoard</strong> · All Rights Reserved ·
+    <a href="mailto:info@adiaqboard.me" style="color:var(--accent);text-decoration:none;">info@adiaqboard.me</a>
   </div>
 </div>
+
 
 <div class="modal-overlay" id="cartModal" onclick="closeCartOutside(event)">
   <div class="modal" style="position:relative;">
     <button class="modal-close" onclick="closeCart()">✕</button>
-    <h3>🛒 Add to Cart</h3>
-    <p class="modal-sub">Select your ADIA QBoard package.</p>
-    
-    <div class="modal-pkg" id="pkgYearly" onclick="selectPkg('yearly')" style="margin-bottom:10px;">
+    <h3>🛒 Get ADIA QBoard</h3>
+    <p class="modal-sub">Select your license to get started.</p>
+
+    <div class="modal-pkg" id="pkgYearly" onclick="selectPkg('yearly')">
       <div class="mpk-dot" id="dotYearly"></div>
       <div>
-        <div class="mpk-name">Yearly License <span style="background:rgba(255,80,80,.2);color:var(--red);font-size:10px;padding:1px 7px;border-radius:10px;">LIMITED TIME</span></div>
-        <div class="mpk-price"><span style="text-decoration:line-through;margin-right:6px;color:var(--dim);">LKR 999</span>LKR 499 / year</div>
+        <div class="mpk-name">Yearly License <span style="background:rgba(255,80,80,.18);color:var(--red);font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;">LIMITED TIME</span></div>
+        <div class="mpk-price"><span style="text-decoration:line-through;margin-right:6px;color:var(--dim);font-size:12px;">LKR 999</span>LKR 499 / year</div>
       </div>
     </div>
 
-    <div class="modal-pkg sel" id="pkgLifetime" onclick="selectPkg('lifetime')" style="border-color: var(--accent);">
-      <div class="mpk-dot" id="dotLifetime" style="background: var(--accent);"></div>
+    <div class="modal-pkg sel" id="pkgLifetime" onclick="selectPkg('lifetime')">
+      <div class="mpk-dot" id="dotLifetime" style="background:var(--accent);"></div>
       <div>
-        <div class="mpk-name">Lifetime License <span style="background:rgba(180,120,255,.2);color:var(--purple);font-size:10px;padding:1px 7px;border-radius:10px;">BEST VALUE</span></div>
-        <div class="mpk-price"><span style="text-decoration:line-through;margin-right:6px;color:var(--dim);">LKR 3,999</span>LKR 1,999 · one-time</div>
+        <div class="mpk-name">Lifetime License <span style="background:rgba(180,120,255,.18);color:var(--purple);font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;">BEST VALUE</span></div>
+        <div class="mpk-price"><span style="text-decoration:line-through;margin-right:6px;color:var(--dim);font-size:12px;">LKR 3,999</span>LKR 1,999 · one-time</div>
       </div>
     </div>
 
-  <div class="modal-divider"></div>
-    <p style="font-size:13px; color:var(--dim); margin-bottom:16px; text-align:center;">Choose how you want to complete your payment.</p>
-    
-    <div style="display:flex; gap:12px; flex-wrap:wrap;">
-      
-      <button onclick="goToQR()" style="flex:1; min-width:140px; background:linear-gradient(145deg, rgba(180,120,255,.15), rgba(106,79,255,.15)); border:1px solid rgba(180,120,255,.3); color:var(--text); border-radius:12px; padding:14px; font-size:14px; font-weight:700; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:8px;" onmouseover="this.style.borderColor='rgba(180,120,255,.6)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='rgba(180,120,255,.3)'; this.style.transform='translateY(0)';">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+    <div class="modal-divider"></div>
+    <p style="font-size:13px;color:var(--dim);margin-bottom:16px;text-align:center;">How would you like to pay?</p>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <button onclick="goToQR()" style="flex:1;min-width:130px;background:rgba(180,120,255,.1);border:1px solid rgba(180,120,255,.28);color:var(--text);border-radius:12px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Space Grotesk',sans-serif;" onmouseover="this.style.borderColor='rgba(180,120,255,.55)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(180,120,255,.28)';this.style.transform='translateY(0)'">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/></svg>
         Pay via QR
       </button>
-
-      <a id="waLink" href="https://wa.me/94741704804?text=ADIA%20QBoard%20Purchase%20Request%0A%0AI%20would%20like%20to%20purchase%20the%20Lifetime%20License%20for%20LKR%201,999.%20Please%20send%20payment%20details." class="modal-wa" target="_blank" style="flex:1; min-width:140px; margin:0;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <a id="waLink" href="https://wa.me/94741704804?text=ADIA%20QBoard%20Purchase%20Request%0A%0ALifetime%20License%20%E2%80%94%20LKR%201%2C999." class="modal-wa" target="_blank" style="flex:1;min-width:130px;margin:0;">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         WhatsApp
       </a>
     </div>
+  </div>
+</div>
 
-  </div>
-</div>
-  </div>
-</div>
 
 <div class="modal-overlay" id="qrModal" onclick="closeQrModalOutside(event)">
-  <div class="modal" style="position:relative; text-align:center;">
+  <div class="modal" style="position:relative;text-align:center;">
     <button class="modal-close" onclick="closeQrModal()">✕</button>
     <h3 style="margin-bottom:8px;">📱 Scan to Pay</h3>
-    <p class="modal-sub">Open your banking app and scan this QR code to transfer.</p>
-    
-    <div style="background:white; padding:20px; border-radius:16px; display:inline-block; margin-bottom:20px; border:1px solid #eee;">
-      <img src="QR.png" alt="Payment QR Code" style="width:220px; height:220px; object-fit:contain; border-radius:8px;">
+    <p class="modal-sub">Open your banking app and scan this QR code.</p>
+    <div class="qr-modal-img-wrap">
+      <img src="QR.png" alt="Payment QR Code" style="width:220px;height:220px;object-fit:contain;border-radius:8px;display:block;">
     </div>
-    
-    <div class="modal-divider" style="margin: 10px 0 20px;"></div>
-    <p style="font-size:12px; color:var(--dim); margin-bottom:14px;">After payment, please send the screenshot/receipt to our WhatsApp to get your activation key instantly.</p>
-    
+    <div class="modal-divider" style="margin:12px 0 18px;"></div>
+    <p style="font-size:12px;color:var(--dim);margin-bottom:14px;">After payment, send your receipt + HWID to WhatsApp to get your key instantly.</p>
     <a href="https://wa.me/94741704804?text=Hi%2C+I+just+paid+for+ADIA+QBoard+via+QR+Scan.+Here+is+my+receipt." class="modal-wa" target="_blank" style="width:100%;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Send Receipt via WhatsApp
     </a>
   </div>
 </div>
 
+
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
-
 <script>
+
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
-const track = document.getElementById('sliderTrack');
-const dotsContainer = document.getElementById('sliderDots');
+const track  = document.getElementById('sliderTrack');
+const dotsC  = document.getElementById('sliderDots');
 
 slides.forEach((_, i) => {
-  const dot = document.createElement('div');
-  dot.classList.add('dot');
-  if (i === 0) dot.classList.add('active');
-  dot.onclick = () => goToSlide(i);
-  dotsContainer.appendChild(dot);
+  const d = document.createElement('div');
+  d.classList.add('dot');
+  if (i === 0) d.classList.add('active');
+  d.onclick = () => goToSlide(i);
+  dotsC.appendChild(d);
 });
 const dots = document.querySelectorAll('.dot');
 
@@ -1348,59 +1467,50 @@ function updateSlider() {
   dots.forEach(d => d.classList.remove('active'));
   dots[currentSlide].classList.add('active');
 }
-
 function moveSlide(dir) {
-  currentSlide += dir;
-  if (currentSlide < 0) currentSlide = slides.length - 1;
-  if (currentSlide >= slides.length) currentSlide = 0;
+  currentSlide = (currentSlide + dir + slides.length) % slides.length;
   updateSlider();
 }
+function goToSlide(i) { currentSlide = i; updateSlider(); }
 
-function goToSlide(index) {
-  currentSlide = index;
-  updateSlider();
-}
+
+setInterval(() => moveSlide(1), 5000);
+
 
 function showPayMethod(method) {
-
-  document.getElementById('tab-qr').classList.remove('active');
-  document.getElementById('tab-bank').classList.remove('active');
-  
-  document.getElementById('view-qr').classList.remove('active');
-  document.getElementById('view-bank').classList.remove('active');
-
+  ['qr','bank'].forEach(m => {
+    document.getElementById('tab-' + m).classList.remove('active');
+    document.getElementById('view-' + m).classList.remove('active');
+  });
   document.getElementById('tab-' + method).classList.add('active');
   document.getElementById('view-' + method).classList.add('active');
 }
-
 function goToQR() {
-
   closeCart();
-  
-  window.location.href = "#payment";
-  
-  showPayMethod('qr');
+  document.getElementById('payment').scrollIntoView({ behavior: 'smooth' });
+  setTimeout(() => showPayMethod('qr'), 400);
 }
 
 
-function openQrModal() { document.getElementById('qrModal').classList.add('open'); }
-function closeQrModal() { document.getElementById('qrModal').classList.remove('open'); }
-function closeQrModalOutside(e) { if(e.target === document.getElementById('qrModal')) closeQrModal(); }
+function openQrModal()         { document.getElementById('qrModal').classList.add('open'); }
+function closeQrModal()        { document.getElementById('qrModal').classList.remove('open'); }
+function closeQrModalOutside(e){ if (e.target === document.getElementById('qrModal')) closeQrModal(); }
+
 
 const faqs = [
-  { q:"Does ADIA QBoard work offline?", a:"Yes, 100%. ADIA QBoard runs entirely on your PC with no internet connection required (except for the Voice Typing feature). Your keystrokes never leave your computer." },
+  { q:"Does ADIA QBoard work offline?", a:"Yes, 100%. All core typing features run entirely on your PC — no internet required (except for Voice Typing). Your keystrokes never leave your computer." },
   { q:"Which Windows versions are supported?", a:"Windows 10 and Windows 11 (64-bit). Windows 7/8 are not officially supported." },
   { q:"Does it work in Photoshop and MS Word?", a:"Yes! ADIA QBoard uses a global keyboard hook that works in virtually any Windows application — Photoshop, Illustrator, MS Word, Notepad, Chrome, and more." },
-  { q:"What is the difference between Basic and Pro?", a:"Basic includes Unicode & FM Legacy typing, offline security, and lifetime updates. Pro adds Sinhala & English Voice Typing, the Unicode↔FM Converter, Desktop To-Do Widget, Priority VIP Support, and the ability to request custom features." },
-  { q:"How does the activation key work?", a:"Each activation key is tied to your specific PC (Hardware ID / HWID). After payment, send your HWID to our WhatsApp. We generate a key specifically for your machine and send it back — usually within minutes." },
-  { q:"Can I use one key on multiple computers?", a:"No. Each license key is hardware-locked to one PC. If you need it on another machine, please contact us for a transfer." },
-  { q:"Is there a free trial?", a:"Yes! You get a 7-day free trial of the Pro version when you install. No payment card required." },
-  { q:"What FM fonts are supported?", a:"FM Malithi, FM Abhaya, FM Bindumathi and most other FM series legacy fonts. The converter supports 1,334+ character mappings." },
-  { q:"How do I get support?", a:"Contact us directly on WhatsApp: +94 717 373 072. Priority responses available for licensed users." },
+  { q:"What is the difference between Yearly and Lifetime?", a:"Both include all core features. The Lifetime plan includes lifetime free updates, Premium VIP Support, and never requires renewal — one payment, forever." },
+  { q:"How does the activation key work?", a:"Each key is hardware-locked to your PC's Hardware ID (HWID). After payment, send your HWID to WhatsApp with your receipt. We generate and send your key — usually within minutes." },
+  { q:"Can I use one key on multiple computers?", a:"No. Each license key is tied to one machine. If you need it on another device, please contact us for a transfer." },
+  { q:"Is there a free trial?", a:"Yes! You get a 7-day free trial of the full Pro version when you install. No payment or card required." },
+  { q:"What FM fonts are supported?", a:"FM Malithi, FM Abhaya, FM Bindumathi, and most FM / Apex / DL series legacy fonts. The converter covers 1,800+ character mappings." },
+  { q:"How do I get support?", a:"Contact us on WhatsApp: +94 741 704 804. Licensed users get priority responses." },
 ];
 
 const faqList = document.getElementById('faqList');
-faqs.forEach((f,i) => {
+faqs.forEach((f, i) => {
   const item = document.createElement('div');
   item.className = 'faq-item';
   item.innerHTML = `
@@ -1414,50 +1524,47 @@ faqs.forEach((f,i) => {
   faqList.appendChild(item);
 });
 
-function toggleFaq(i){
+function toggleFaq(i) {
   const items = document.querySelectorAll('.faq-item');
-  const ans   = document.getElementById('fa'+i);
+  const ans   = document.getElementById('fa' + i);
   const open  = items[i].classList.contains('open');
-  items.forEach((it,j) => {
+  items.forEach((it, j) => {
     it.classList.remove('open');
-    document.getElementById('fa'+j).style.maxHeight='0';
+    document.getElementById('fa' + j).style.maxHeight = '0';
   });
-  if(!open){
+  if (!open) {
     items[i].classList.add('open');
-    ans.style.maxHeight = ans.scrollHeight+20+'px';
+    ans.style.maxHeight = ans.scrollHeight + 20 + 'px';
   }
 }
 
-function openCart(pkg) { 
-  document.getElementById('cartModal').classList.add('open'); 
-  if(pkg) selectPkg(pkg);
-  else selectPkg('lifetime'); 
-}
 
-function closeCart(){ document.getElementById('cartModal').classList.remove('open'); }
-function closeCartOutside(e){ if(e.target===document.getElementById('cartModal')) closeCart(); }
+function openCart(pkg) {
+  document.getElementById('cartModal').classList.add('open');
+  selectPkg(pkg || 'lifetime');
+}
+function closeCart()            { document.getElementById('cartModal').classList.remove('open'); }
+function closeCartOutside(e)    { if (e.target === document.getElementById('cartModal')) closeCart(); }
 
 function selectPkg(pkg) {
   const pY = document.getElementById('pkgYearly');
   const pL = document.getElementById('pkgLifetime');
   const dY = document.getElementById('dotYearly');
   const dL = document.getElementById('dotLifetime');
-  const waLink = document.getElementById('waLink');
+  const wa = document.getElementById('waLink');
 
-  pY.classList.remove('sel'); pY.style.borderColor = 'var(--border)'; dY.style.background = 'transparent';
-  pL.classList.remove('sel'); pL.style.borderColor = 'var(--border)'; dL.style.background = 'transparent';
+  [pY, pL].forEach(p => { p.classList.remove('sel'); p.style.borderColor = 'var(--border)'; });
+  [dY, dL].forEach(d => { d.style.background = 'transparent'; });
 
-
-  if(pkg === 'yearly') {
+  if (pkg === 'yearly') {
     pY.classList.add('sel'); pY.style.borderColor = 'var(--red)'; dY.style.background = 'var(--red)';
-    waLink.href = "https://wa.me/94741704804?text=ADIA%20QBoard%20Purchase%20Request%0A%0AI%20would%20like%20to%20purchase%20the%20Yearly%20License%20for%20LKR%20499.%20Please%20send%20payment%20details.";
+    wa.href = "https://wa.me/94741704804?text=ADIA%20QBoard%20Purchase%20Request%0A%0AYearly%20License%20%E2%80%94%20LKR%20499.";
   } else {
     pL.classList.add('sel'); pL.style.borderColor = 'var(--accent)'; dL.style.background = 'var(--accent)';
-    waLink.href = "https://wa.me/94741704804?text=ADIA%20QBoard%20Purchase%20Request%0A%0AI%20would%20like%20to%20purchase%20the%20Lifetime%20License%20for%20LKR%201,999.%20Please%20send%20payment%20details.";
+    wa.href = "https://wa.me/94741704804?text=ADIA%20QBoard%20Purchase%20Request%0A%0ALifetime%20License%20%E2%80%94%20LKR%201%2C999.";
   }
 }
-function closeCart(){ document.getElementById('cartModal').classList.remove('open'); }
-function closeCartOutside(e){ if(e.target===document.getElementById('cartModal')) closeCart(); }
+
 
 function toggleMobileNav() {
   document.getElementById('mobileNav').classList.toggle('open');
@@ -1465,17 +1572,19 @@ function toggleMobileNav() {
 
 const revealEls = document.querySelectorAll('.reveal');
 const observer  = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
 revealEls.forEach(el => observer.observe(el));
+
 
 let selectedStars = 0;
 function selectStar(val) {
   selectedStars = val;
-  document.querySelectorAll('.star-btn').forEach(function(btn, i) {
+  document.querySelectorAll('.star-btn').forEach((btn, i) => {
     btn.classList.toggle('active', i < val);
   });
 }
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBU0LROq4tYKjfKx5JeB1afLDKQ_nRq1jk",
@@ -1485,105 +1594,87 @@ const firebaseConfig = {
   messagingSenderId: "1082220156930",
   appId: "1:1082220156930:web:8ee6c1fcff31eadd6a2f1b"
 };
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 function updateRatingStatsUI(reviews) {
-  var counts = {5:0, 4:0, 3:0, 2:0, 1:0};
-  reviews.forEach(function(r){ counts[r.stars] = (counts[r.stars]||0) + 1; });
-  var total = reviews.length;
-  var sum = counts[5]*5 + counts[4]*4 + counts[3]*3 + counts[2]*2 + counts[1]*1;
-  var avg = total > 0 ? (sum/total).toFixed(1) : '0.0';
-
-  document.getElementById('avgScore').textContent = avg;
+  const counts = {5:0,4:0,3:0,2:0,1:0};
+  reviews.forEach(r => { counts[r.stars] = (counts[r.stars]||0) + 1; });
+  const total = reviews.length;
+  const sum   = counts[5]*5 + counts[4]*4 + counts[3]*3 + counts[2]*2 + counts[1]*1;
+  const avg   = total > 0 ? (sum/total).toFixed(1) : '0.0';
+  document.getElementById('avgScore').textContent    = avg;
   document.getElementById('totalRatings').textContent = total;
-
-  [5,4,3,2,1].forEach(function(s){
-    var pct = total > 0 ? Math.round((counts[s]/total)*100) : 0;
-    var bar = document.getElementById('bar'+s);
-    var cnt = document.getElementById('cnt'+s);
-    if(bar) setTimeout(function(){ bar.style.width = pct+'%'; }, 400);
-    if(cnt) cnt.textContent = counts[s];
+  [5,4,3,2,1].forEach(s => {
+    const pct = total > 0 ? Math.round((counts[s]/total)*100) : 0;
+    const bar = document.getElementById('bar'+s);
+    const cnt = document.getElementById('cnt'+s);
+    if (bar) setTimeout(() => { bar.style.width = pct + '%'; }, 400);
+    if (cnt) cnt.textContent = counts[s];
   });
 }
 
 function fetchAndRenderReviews() {
-  db.collection("reviews").orderBy("timestamp", "desc").get().then(function(querySnapshot) {
-    var list = document.getElementById('reviewsList');
-    list.innerHTML = ''; 
-    var reviewsArray = [];
-
-    querySnapshot.forEach(function(doc) {
-      var r = doc.data();
-      reviewsArray.push(r);
-
-      var card = document.createElement('div');
+  db.collection("reviews").orderBy("timestamp","desc").get().then(snap => {
+    const list = document.getElementById('reviewsList');
+    list.innerHTML = '';
+    const arr = [];
+    snap.forEach(doc => {
+      const r = doc.data();
+      arr.push(r);
+      const card = document.createElement('div');
       card.className = 'review-card';
-      var loc = r.location ? ' · ' + r.location : '';
-      var date = r.date || 'Recently';
-      var firstLetter = r.name ? r.name[0].toUpperCase() : 'U';
-
-      card.innerHTML = '<div class="review-header"><div class="review-avatar">'+firstLetter+'</div><div class="review-meta"><div class="review-name">'+(r.name||'Anonymous')+'</div><div class="review-stars">'+'⭐'.repeat(r.stars)+'</div></div></div><div class="review-text">'+r.text+'</div><div class="review-date">'+date+loc+'</div>';
+      const loc   = r.location ? ' · ' + r.location : '';
+      const date  = r.date || 'Recently';
+      const first = r.name ? r.name[0].toUpperCase() : 'U';
+      card.innerHTML = `
+        <div class="review-header">
+          <div class="review-avatar">${first}</div>
+          <div>
+            <div class="review-name">${r.name || 'Anonymous'}</div>
+            <div class="review-stars">${'⭐'.repeat(r.stars)}</div>
+          </div>
+        </div>
+        <div class="review-text">${r.text}</div>
+        <div class="review-date">${date}${loc}</div>`;
       list.appendChild(card);
     });
-
-    updateRatingStatsUI(reviewsArray);
-  }).catch(function(error) {
-    console.log("Error getting reviews: ", error);
-  });
+    updateRatingStatsUI(arr);
+  }).catch(err => console.error("Reviews error:", err));
 }
-
 fetchAndRenderReviews();
 
 function submitRating() {
   if (!selectedStars) { alert('Please select a star rating first!'); return; }
-  var text = document.getElementById('reviewText').value.trim();
+  const text = document.getElementById('reviewText').value.trim();
   if (!text) { alert('Please write a short review!'); return; }
-  var name = document.getElementById('reviewName').value.trim();
-  var location = document.getElementById('reviewLocation').value.trim();
+  const name     = document.getElementById('reviewName').value.trim();
+  const location = document.getElementById('reviewLocation').value.trim();
+  const now      = new Date();
+  const months   = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dateStr  = months[now.getMonth()] + ' ' + now.getFullYear();
 
-  var now = new Date();
-  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var dateString = months[now.getMonth()] + ' ' + now.getFullYear();
+  const btn = document.querySelector('.btn-submit-rating');
+  const orig = btn.innerHTML;
+  btn.innerHTML = 'Submitting…'; btn.disabled = true;
 
-  var reviewData = {
-    stars: selectedStars,
-    name: name || 'Anonymous',
-    text: text,
-    location: location,
-    date: dateString,
+  db.collection("reviews").add({
+    stars: selectedStars, name: name || 'Anonymous',
+    text, location, date: dateStr,
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
-  };
-
-  var btn = document.querySelector('.btn-submit-rating');
-  var originalBtnText = btn.innerHTML;
-  btn.innerHTML = "Submitting...";
-  btn.disabled = true;
-
-  db.collection("reviews").add(reviewData).then(function() {
-    document.getElementById('reviewText').value = '';
-    document.getElementById('reviewName').value = '';
-    document.getElementById('reviewLocation').value = '';
-    document.querySelectorAll('.star-btn').forEach(function(b){ b.classList.remove('active'); });
+  }).then(() => {
+    ['reviewText','reviewName','reviewLocation'].forEach(id => document.getElementById(id).value = '');
+    document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('active'));
     selectedStars = 0;
-
-    btn.innerHTML = originalBtnText;
-    btn.disabled = false;
-
-    var thanks = document.getElementById('ratingThanks');
+    btn.innerHTML = orig; btn.disabled = false;
+    const thanks = document.getElementById('ratingThanks');
     thanks.classList.add('show');
-    setTimeout(function(){ thanks.classList.remove('show'); }, 3500);
-
+    setTimeout(() => thanks.classList.remove('show'), 3500);
     fetchAndRenderReviews();
-
-  }).catch(function(error) {
-    console.error("Error adding review: ", error);
+  }).catch(err => {
+    console.error("Submit error:", err);
     alert("Something went wrong. Please try again.");
-    btn.innerHTML = originalBtnText;
-    btn.disabled = false;
+    btn.innerHTML = orig; btn.disabled = false;
   });
 }
 </script>
